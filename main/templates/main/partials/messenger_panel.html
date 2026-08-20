@@ -1,0 +1,64 @@
+<!-- main/templates/main/partials/messenger_panel.html -->
+<div x-data="{ open: false }"
+     class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+
+    <!-- Кнопки мессенджеров -->
+    <div class="flex-col gap-3 hidden md:!flex"
+     :class="{ '!flex': open }">
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/99371342731" target="_blank" title="WhatsApp"
+           class="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#25D366] text-white text-lg md:text-xl shadow-lg hover:scale-110 transition-transform duration-200">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+
+        <!-- Telegram -->
+        <a href="https://t.me/username" target="_blank" title="Telegram"
+           class="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#0088cc] text-white text-lg md:text-xl shadow-lg hover:scale-110 transition-transform duration-200">
+            <i class="fa-brands fa-telegram"></i>
+        </a>
+
+        <!-- IMO -->
+        <a href="#" title="IMO"
+           class="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#0a90d4] text-white text-lg md:text-xl shadow-lg hover:scale-110 transition-transform duration-200">
+            <i class="fa-solid fa-comment-dots"></i>
+        </a>
+
+        <!-- WeChat -->
+        <a href="#" title="WeChat"
+           class="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#07C160] text-white text-lg md:text-xl shadow-lg hover:scale-110 transition-transform duration-200">
+            <i class="fa-brands fa-weixin"></i>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:guzelka9494@gmail.com" title="Email"
+           class="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#D4AF37] text-[#0B3D2E] text-lg md:text-xl shadow-lg hover:scale-110 transition-transform duration-200">
+            <i class="fa-solid fa-envelope"></i>
+        </a>
+
+    </div>
+
+    <!-- Кнопка-переключатель (ТОЛЬКО на мобилке/планшете) -->
+    <!-- Кнопка-переключатель с подсказкой -->
+    <div class="md:hidden flex items-center gap-2" x-data="{ hint: true }" 
+        x-init="setTimeout(() => hint = false, 4000)">
+
+        <!-- Облачко-подсказка -->
+        <div x-show="hint && !open" x-transition
+            class="bg-white text-[#0B3D2E] text-xs font-medium px-3 py-2 rounded-lg shadow-lg whitespace-nowrap">
+            Напишите нам 👋
+        </div>
+
+        <!-- Пузырь -->
+        <button @click="open = !open; hint = false" title="Связаться"
+            class="w-14 h-14 flex items-center justify-center rounded-full bg-[#0B3D2E] text-white text-2xl shadow-xl hover:scale-110 transition-transform duration-200">
+            <span x-show="!open">&#128172;</span>
+        </button>
+    </div>
+
+    <!-- Подпись (только на десктопе) -->
+    <div class="hidden md:block bg-[#0B3D2E] text-white text-xs px-3 py-1.5 rounded-full shadow-lg">
+        Ответим в течение 1 часа ⭐
+    </div>
+
+</div>

@@ -1,0 +1,280 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Переводы и лингвистические услуги — TM IMPRESSIVE{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO ================= -->
+<section class="relative bg-malachite text-white">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="relative max-w-6xl mx-auto px-4 py-24 md:py-32 text-center">
+        <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+            <i class="fa-solid fa-language mr-2"></i>Лингвистические услуги
+        </span>
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            Переводы без<br>языковых барьеров
+        </h1>
+        <p class="max-w-2xl mx-auto text-lg md:text-xl text-cream/90 mb-6">
+            Профессиональные переводы и сопровождение на 4 языках:
+        </p>
+
+        <!-- Флажки языков -->
+        <div class="flex items-center justify-center gap-4 mb-8">
+            <img src="https://flagcdn.com/w80/ru.png" alt="Русский"
+                 class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+            <img src="https://flagcdn.com/w80/gb.png" alt="Английский"
+                 class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+            <img src="https://flagcdn.com/w80/tm.png" alt="Туркменский"
+                 class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+            <img src="https://flagcdn.com/w80/cn.png" alt="Китайский"
+                 class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+        </div>
+
+        <a href="{% url 'contacts:index' %}"
+           class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
+            Заказать перевод
+        </a>
+    </div>
+</section>
+
+<!-- ================= УСЛУГИ ================= -->
+<section class="py-16 md:py-24 bg-cream">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center text-malachite mb-4">
+            Виды переводов
+        </h2>
+        <p class="text-center text-ink/70 mb-12 max-w-2xl mx-auto">
+            Подберём формат под ваши документы и мероприятия
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 ">
+                <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite text-brass text-2xl mb-4 transition-colors duration-300 group-hover:bg-brass group-hover:text-malachite">
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+                <h3 class="text-xl font-bold text-malachite mb-2">Письменный перевод</h3>
+                <p class="text-ink/70">Документы, статьи, договоры и любые тексты.</p>
+            </div>
+
+            <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 ">
+                <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite text-brass text-2xl mb-4 transition-colors duration-300 group-hover:bg-brass group-hover:text-malachite">
+                    <i class="fa-solid fa-comments"></i>
+                </div>
+                <h3 class="text-xl font-bold text-malachite mb-2">Устный перевод</h3>
+                <p class="text-ink/70">Последовательный и синхронный на встречах.</p>
+            </div>
+
+            <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 ">
+                <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite text-brass text-2xl mb-4 transition-colors duration-300 group-hover:bg-brass group-hover:text-malachite">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                </div>
+                <h3 class="text-xl font-bold text-malachite mb-2">Юридический перевод</h3>
+                <p class="text-ink/70">Договоры, контракты и правовые документы.</p>
+            </div>
+
+            <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 ">
+                <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite text-brass text-2xl mb-4 transition-colors duration-300 group-hover:bg-brass group-hover:text-malachite">
+                    <i class="fa-solid fa-briefcase-medical"></i>
+                </div>
+                <h3 class="text-xl font-bold text-malachite mb-2">Технический перевод</h3>
+                <p class="text-ink/70">Инструкции, спецификации и техдокументация.</p>
+            </div>
+
+            <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 ">
+                <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite text-brass text-2xl mb-4 transition-colors duration-300 group-hover:bg-brass group-hover:text-malachite">
+                    <i class="fa-solid fa-stamp"></i>
+                </div>
+                <h3 class="text-xl font-bold text-malachite mb-2">Нотариальный перевод</h3>
+                <p class="text-ink/70">Заверенные переводы официальных документов.</p>
+            </div>
+
+            <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite text-brass text-2xl mb-4 transition-colors duration-300 group-hover:bg-brass group-hover:text-malachite">
+                    <i class="fa-solid fa-headphones"></i>
+                </div>
+                <h3 class="text-xl font-bold text-malachite mb-2">Сопровождение мероприятий</h3>
+                <p class="text-ink/70">Переводчик на конференциях и переговорах.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ================= ЯЗЫКИ ================= -->
+<section class="py-16 md:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-malachite mb-4">
+            Языки перевода
+        </h2>
+        <p class="text-center text-ink/70 mb-12 max-w-2xl mx-auto">
+            Работаем со всеми комбинациями этих языков
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+
+            <div class="text-center p-4 sm:p-8 bg-cream rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                <img src="https://flagcdn.com/w160/ru.png" alt="Русский флаг"
+                     class="w-20 h-14 sm:w-24 sm:h-16 object-cover mx-auto mb-4 rounded-lg shadow ring-1 ring-black/5">
+                <h3 class="font-bold text-malachite text-base sm:text-lg">Русский</h3>
+            </div>
+
+            <div class="text-center p-4 sm:p-8 bg-cream rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                <img src="https://flagcdn.com/w160/gb.png" alt="Английский флаг"
+                     class="w-20 h-14 sm:w-24 sm:h-16 object-cover mx-auto mb-4 rounded-lg shadow ring-1 ring-black/5">
+                <h3 class="font-bold text-malachite text-base sm:text-lg">Английский</h3>
+            </div>
+
+            <div class="text-center p-4 sm:p-8 bg-cream rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                <img src="https://flagcdn.com/w160/tm.png" alt="Туркменский флаг"
+                     class="w-20 h-14 sm:w-24 sm:h-16 object-cover mx-auto mb-4 rounded-lg shadow ring-1 ring-black/5">
+                <h3 class="font-bold text-malachite text-base sm:text-lg">Туркменский</h3>
+            </div>
+
+            <div class="text-center p-4 sm:p-8 bg-cream rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                <img src="https://flagcdn.com/w160/cn.png" alt="Китайский флаг"
+                     class="w-20 h-14 sm:w-24 sm:h-16 object-cover mx-auto mb-4 rounded-lg shadow ring-1 ring-black/5">
+                <h3 class="font-bold text-malachite text-base sm:text-lg">Китайский</h3>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ================= ПАКЕТЫ ================= -->
+<section class="py-16 md:py-24 bg-cream">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center text-malachite mb-4">
+            Пакеты услуг
+        </h2>
+        <p class="text-center text-ink/70 mb-12 max-w-2xl mx-auto">
+            Выберите формат под объём и срочность
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+
+            <!-- БАЗОВЫЙ -->
+            <div class="flex flex-col bg-white rounded-2xl p-8 shadow-md">
+                <h3 class="text-2xl font-bold text-malachite mb-1">Базовый</h3>
+                <p class="text-ink/60 mb-4">Разовый перевод</p>
+                <div class="text-4xl font-bold text-malachite mb-6">от $10</div>
+                <p class="text-ink/50 text-sm -mt-4 mb-6">за страницу</p>
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Письменный перевод</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> 1 языковая пара</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Стандартный срок</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Проверка редактором</li>
+                </ul>
+                <a href="{% url 'contacts:index' %}"
+                   class="block text-center px-6 py-3 rounded-full border-2 border-malachite text-malachite font-bold hover:bg-malachite hover:text-white transition-colors duration-200">
+                    Выбрать пакет
+                </a>
+            </div>
+
+            <!-- БИЗНЕС (популярный) -->
+            <div class="flex flex-col bg-malachite text-white rounded-2xl p-8 shadow-2xl md:scale-105 relative border-2 border-brass">
+                <span class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-brass text-malachite text-sm font-bold whitespace-nowrap">
+                    ⭐ Популярный
+                </span>
+                <h3 class="text-2xl font-bold mb-1">Бизнес</h3>
+                <p class="text-cream/70 mb-4">Для компаний</p>
+                <div class="text-4xl font-bold text-brass mb-6">от $300</div>
+                <p class="text-cream/50 text-sm -mt-4 mb-6">за проект</p>
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Всё из «Базового»</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Устный перевод</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Юридические документы</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Ускоренные сроки</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Персональный менеджер</li>
+                </ul>
+                <a href="{% url 'contacts:index' %}"
+                   class="block text-center px-6 py-3 rounded-full bg-brass text-malachite font-bold hover:scale-105 transition-transform duration-200">
+                    Выбрать пакет
+                </a>
+            </div>
+
+            <!-- ПРЕМИУМ -->
+            <div class="flex flex-col bg-white rounded-2xl p-8 shadow-md">
+                <h3 class="text-2xl font-bold text-malachite mb-1">Премиум</h3>
+                <p class="text-ink/60 mb-4">Всё включено</p>
+                <div class="text-4xl font-bold text-malachite mb-6">от $800</div>
+                <p class="text-ink/50 text-sm -mt-4 mb-6">за проект</p>
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Всё из «Бизнеса»</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Синхронный перевод</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Нотариальное заверение</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Сопровождение мероприятий</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Приоритет и поддержка 24/7</li>
+                </ul>
+                <a href="{% url 'contacts:index' %}"
+                   class="block text-center px-6 py-3 rounded-full border-2 border-malachite text-malachite font-bold hover:bg-malachite hover:text-white transition-colors duration-200">
+                    Выбрать пакет
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ================= ПРЕИМУЩЕСТВА ================= -->
+<section class="py-16 md:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center text-malachite mb-12">
+            Почему выбирают нас
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <div class="text-center p-6">
+                <div class="w-16 h-16 mx-auto flex items-center justify-center rounded-xl bg-malachite text-brass text-3xl mb-4 transition-colors duration-300 hover:bg-brass hover:text-malachite cursor-pointer">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <h3 class="font-bold text-malachite mb-2">Носители языка</h3>
+                <p class="text-ink/70 text-sm">Переводчики с профильным образованием.</p>
+            </div>
+
+            <div class="text-center p-6">
+                <div class="w-16 h-16 mx-auto flex items-center justify-center rounded-xl bg-malachite text-brass text-3xl mb-4 transition-colors duration-300 hover:bg-brass hover:text-malachite cursor-pointer">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+                <h3 class="font-bold text-malachite mb-2">Соблюдаем сроки</h3>
+                <p class="text-ink/70 text-sm">Точно в дедлайн, без задержек.</p>
+            </div>
+
+            <div class="text-center p-6">
+                <div class="w-16 h-16 mx-auto flex items-center justify-center rounded-xl bg-malachite text-brass text-3xl mb-4 transition-colors duration-300 hover:bg-brass hover:text-malachite cursor-pointer">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 class="font-bold text-malachite mb-2">Конфиденциальность</h3>
+                <p class="text-ink/70 text-sm">Полная защита ваших документов.</p>
+            </div>
+
+            <div class="text-center p-6">
+                <div class="w-16 h-16 mx-auto flex items-center justify-center rounded-xl bg-malachite text-brass text-3xl mb-4 transition-colors duration-300 hover:bg-brass hover:text-malachite cursor-pointer">
+                    <i class="fa-solid fa-check-double"></i>
+                </div>
+                <h3 class="font-bold text-malachite mb-2">Контроль качества</h3>
+                <p class="text-ink/70 text-sm">Двойная проверка каждого перевода.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="py-16 md:py-20 bg-malachite text-white">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4">
+            Нужен перевод?
+        </h2>
+        <p class="text-cream/90 text-lg mb-8">
+            Пришлите документ — оценим объём и сроки. Ответим в течение 1 часа ⏱️
+        </p>
+        <a href="{% url 'contacts:index' %}"
+           class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
+            Заказать перевод
+        </a>
+    </div>
+</section>
+
+{% endblock %}

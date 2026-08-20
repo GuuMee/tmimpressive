@@ -1,0 +1,216 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Бизнес-консалтинг в Туркменистане — TM IMPRESSIVE{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO ================= -->
+<section class="relative bg-malachite text-white">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="relative max-w-6xl mx-auto px-4 py-24 md:py-32 text-center">
+        <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+            <i class="fa-solid fa-briefcase mr-2"></i>Бизнес-консалтинг
+        </span>
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            Ваш бизнес-партнёр<br>в Туркменистане
+        </h1>
+        <p class="max-w-2xl mx-auto text-lg md:text-xl text-cream/90 mb-8">
+            Помогаем выйти на рынок, найти партнёров и вести дела уверенно.
+        </p>
+        <a href="{% url 'contacts:index' %}"
+           class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
+            Обсудить проект
+        </a>
+    </div>
+</section>
+
+<!-- ================= УСЛУГИ ================= -->
+<section class="py-16 md:py-24 bg-cream">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center text-malachite mb-4">
+            Наши услуги
+        </h2>
+        <p class="text-center text-ink/70 mb-12 max-w-2xl mx-auto">
+            Полное сопровождение вашего бизнеса на всех этапах
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite text-brass text-2xl mb-4 transition-colors duration-300 group-hover:bg-brass group-hover:text-malachite">
+                    <i class="fa-solid fa-door-open"></i>
+                </div>
+                <h3 class="text-xl font-bold text-malachite mb-2">Выход на рынок</h3>
+                <p class="text-ink/70">Анализ рынка и стратегия входа в бизнес-среду Туркменистана.</p>
+            </div>
+
+            <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite text-brass text-2xl mb-4 transition-colors duration-300 group-hover:bg-brass group-hover:text-malachite">
+                    <i class="fa-solid fa-handshake-angle"></i>
+                </div>
+                <h3 class="text-xl font-bold text-malachite mb-2">Поиск партнёров</h3>
+                <p class="text-ink/70">Подбор надёжных местных партнёров и поставщиков.</p>
+            </div>
+
+            <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite text-brass text-2xl mb-4 transition-colors duration-300 group-hover:bg-brass group-hover:text-malachite">
+                    <i class="fa-solid fa-file-signature"></i>
+                </div>
+                <h3 class="text-xl font-bold text-malachite mb-2">Сопровождение сделок</h3>
+                <p class="text-ink/70">Поддержка на переговорах и при заключении контрактов.</p>
+            </div>
+
+            <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite text-brass text-2xl mb-4 transition-colors duration-300 group-hover:bg-brass group-hover:text-malachite">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                </div>
+                <h3 class="text-xl font-bold text-malachite mb-2">Юридический консалтинг</h3>
+                <p class="text-ink/70">Правовое и налоговое сопровождение вашей деятельности.</p>
+            </div>
+
+            <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite text-brass text-2xl mb-4 transition-colors duration-300 group-hover:bg-brass group-hover:text-malachite">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <h3 class="text-xl font-bold text-malachite mb-2">Маркетинговые исследования</h3>
+                <p class="text-ink/70">Анализ спроса, конкурентов и потенциала вашей ниши.</p>
+            </div>
+
+            <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite text-brass text-2xl mb-4 transition-colors duration-300 group-hover:bg-brass group-hover:text-malachite">
+                    <i class="fa-solid fa-plane-departure"></i>
+                </div>
+                <h3 class="text-xl font-bold text-malachite mb-2">Деловые визиты</h3>
+                <p class="text-ink/70">Организация бизнес-поездок, встреч и переговоров.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ================= ДЛЯ КОГО ================= -->
+<section class="py-16 md:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center text-malachite mb-12">
+            Для кого
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+            <div class="text-center p-6">
+                <div class="w-16 h-16 mx-auto flex items-center justify-center rounded-xl bg-malachite text-brass text-3xl mb-4 transition-colors duration-300 hover:bg-brass hover:text-malachite cursor-pointer">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+                <h3 class="font-bold text-malachite mb-2">Международные компании</h3>
+                <p class="text-ink/70 text-sm">Выходящие на рынок Туркменистана.</p>
+            </div>
+
+            <div class="text-center p-6">
+                <div class="w-16 h-16 mx-auto flex items-center justify-center rounded-xl bg-malachite text-brass text-3xl mb-4 transition-colors duration-300 hover:bg-brass hover:text-malachite cursor-pointer">
+                    <i class="fa-solid fa-sack-dollar"></i>
+                </div>
+                <h3 class="font-bold text-malachite mb-2">Инвесторы</h3>
+                <p class="text-ink/70 text-sm">Ищущие перспективные проекты в регионе.</p>
+            </div>
+
+            <div class="text-center p-6">
+                <div class="w-16 h-16 mx-auto flex items-center justify-center rounded-xl bg-malachite text-brass text-3xl mb-4 transition-colors duration-300 hover:bg-brass hover:text-malachite cursor-pointer">
+                    <i class="fa-solid fa-landmark-dome"></i>
+                </div>
+                <h3 class="font-bold text-malachite mb-2">Госструктуры</h3>
+                <p class="text-ink/70 text-sm">Международное сотрудничество и проекты.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ================= ПАКЕТЫ ================= -->
+<section class="py-16 md:py-24 bg-cream">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center text-malachite mb-4">
+            Пакеты консалтинга
+        </h2>
+        <p class="text-center text-ink/70 mb-12 max-w-2xl mx-auto">
+            Выберите формат сотрудничества под ваши задачи
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+
+            <!-- РАЗОВАЯ -->
+            <div class="flex flex-col bg-white rounded-2xl p-8 shadow-md">
+                <h3 class="text-2xl font-bold text-malachite mb-1">Разовая консультация</h3>
+                <p class="text-ink/60 mb-4">Быстрый старт</p>
+                <div class="text-4xl font-bold text-malachite mb-6">от $150</div>
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Анализ вашего запроса</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Экспертная консультация</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Рекомендации по шагам</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Ответы на вопросы</li>
+                </ul>
+                <a href="{% url 'contacts:index' %}"
+                   class="block text-center px-6 py-3 rounded-full border-2 border-malachite text-malachite font-bold hover:bg-malachite hover:text-white transition-colors duration-200">
+                    Выбрать пакет
+                </a>
+            </div>
+
+            <!-- СОПРОВОЖДЕНИЕ (популярный) -->
+            <div class="flex flex-col bg-malachite text-white rounded-2xl p-8 shadow-2xl md:scale-105 relative border-2 border-brass">
+                <span class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-brass text-malachite text-sm font-bold whitespace-nowrap">
+                    ⭐ Популярный
+                </span>
+                <h3 class="text-2xl font-bold mb-1">Сопровождение</h3>
+                <p class="text-cream/70 mb-4">Оптимальный выбор</p>
+                <div class="text-4xl font-bold text-brass mb-6">от $600</div>
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Всё из «Разовой»</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Поиск партнёров</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Помощь на переговорах</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Юридическая поддержка</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Персональный менеджер</li>
+                </ul>
+                <a href="{% url 'contacts:index' %}"
+                   class="block text-center px-6 py-3 rounded-full bg-brass text-malachite font-bold hover:scale-105 transition-transform duration-200">
+                    Выбрать пакет
+                </a>
+            </div>
+
+            <!-- ПОЛНЫЙ -->
+            <div class="flex flex-col bg-white rounded-2xl p-8 shadow-md">
+                <h3 class="text-2xl font-bold text-malachite mb-1">Полный пакет</h3>
+                <p class="text-ink/60 mb-4">Всё под ключ</p>
+                <div class="text-4xl font-bold text-malachite mb-6">от $1500</div>
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Всё из «Сопровождения»</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Полный выход на рынок</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Маркетинговые исследования</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Организация деловых визитов</li>
+                    <li class="flex items-start gap-2"><span class="text-brass">✔</span> Приоритетная поддержка 24/7</li>
+                </ul>
+                <a href="{% url 'contacts:index' %}"
+                   class="block text-center px-6 py-3 rounded-full border-2 border-malachite text-malachite font-bold hover:bg-malachite hover:text-white transition-colors duration-200">
+                    Выбрать пакет
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="py-16 md:py-20 bg-malachite text-white">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4">
+            Готовы развивать бизнес?
+        </h2>
+        <p class="text-cream/90 text-lg mb-8">
+            Обсудим ваш проект и найдём лучшее решение. Ответим в течение 1 часа ⏱️
+        </p>
+        <a href="{% url 'contacts:index' %}"
+           class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
+            Обсудить проект
+        </a>
+    </div>
+</section>
+
+{% endblock %}

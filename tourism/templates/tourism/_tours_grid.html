@@ -1,0 +1,105 @@
+{# ============================================================ #}
+{# 📁 tourism/templates/tourism/_tours_grid.html                 #}
+{# 🔄 ЗАМЕНИТЬ ЦЕЛИКОМ — карточки туров с ценами по категориям   #}
+{# ============================================================ #}
+
+{# ---------- Плашка: сколько найдено + активная категория ---------- #}
+<div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+    <p class="text-ink/50">
+        Найдено туров: <b class="text-malachite">{{ tours|length }}</b>
+    </p>
+
+    {% if selected.category %}
+    <p class="text-sm bg-brass/20 text-malachite font-semibold px-4 py-1.5 rounded-full">
+        <i class="fa-solid fa-tag"></i> Цены показаны для категории: {{ category_label }}
+    </p>
+    {% endif %}
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+    {% for tour in tours %}
+    <div class="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300">
+
+        <!-- Фото -->
+        <div class="relative h-56 bg-gradient-to-br from-malachite to-teal">
+            {% if tour.main_image %}
+                <img src="{{ tour.main_image.url }}" alt="{{ tour.title }}"
+                     class="w-full h-full object-cover">
+            {% else %}
+                <div class="w-full h-full flex items-center justify-center">
+                    <i class="fa-regular fa-image text-brass/60 text-5xl"></i>
+                </div>
+            {% endif %}
+
+            <!-- Бейдж категории: если фильтр выбран — показываем выбранную -->
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-brass text-malachite text-xs font-bold">
+                {% if selected.category %}{{ category_label }}{% else %}{{ tour.get_category_display }}{% endif %}
+            </span>
+            <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-malachite text-white text-xs font-bold">
+                {{ tour.get_tour_type_display }}
+            </span>
+        </div>
+
+        <!-- Контент -->
+        <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-xl font-bold text-malachite mb-1">{{ tour.title }}</h3>
+
+            {% if tour.direction %}
+            <p class="text-teal text-sm font-semibold mb-2">
+                <i class="fa-solid fa-location-dot"></i> {{ tour.direction }}
+            </p>
+            {% endif %}
+
+            <p class="text-ink/60 text-sm mb-4 flex-grow">
+                {{ tour.short_description|default:"Незабываемое путешествие с TM Impressive" }}
+            </p>
+
+            <!-- 💰 ЦЕНЫ ПО КАТЕГОРИЯМ -->
+            {% if tour.available_categories %}
+            <div class="mb-4 space-y-1.5">
+                {% for code, name, price in tour.available_categories %}
+                <div class="flex items-center justify-between text-sm px-3 py-1.5 rounded-lg
+                    {% if selected.category == code %}bg-brass/20 ring-1 ring-brass{% else %}bg-cream{% endif %}">
+                    <span class="text-ink/70 font-semibold">
+                        {% if code == 'budget' %}<i class="fa-solid fa-wallet text-teal"></i>
+                        {% elif code == 'standard' %}<i class="fa-solid fa-star text-teal"></i>
+                        {% else %}<i class="fa-solid fa-crown text-brass"></i>{% endif %}
+                        {{ name }}
+                    </span>
+                    <b class="text-malachite">${{ price|floatformat:0 }}</b>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Итоговая строка: длительность + цена -->
+            <div class="flex items-center justify-between pt-3 border-t border-cream mb-4">
+                <span class="text-ink/60 text-sm flex items-center gap-1">
+                    <i class="fa-regular fa-clock"></i> {{ tour.duration_days }} дн.
+                </span>
+                <span class="text-malachite font-extrabold text-lg">
+                    {% if selected.category %}
+                        ${{ tour.display_price|floatformat:0 }}
+                    {% else %}
+                        от ${{ tour.display_price|floatformat:0 }}
+                    {% endif %}
+                </span>
+            </div>
+
+            <a href="{% url 'tourism:tour_detail' tour.slug %}{% if selected.category %}?category={{ selected.category }}{% endif %}"
+               class="block text-center px-4 py-2.5 rounded-full bg-malachite text-white font-bold text-sm hover:bg-teal transition-colors duration-200">
+                Подробнее
+            </a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-span-full text-center py-16 bg-white rounded-2xl">
+        <i class="fa-solid fa-magnifying-glass text-ink/20 text-5xl mb-4"></i>
+        <p class="text-ink/50 text-lg mb-3">По выбранным фильтрам туров не найдено</p>
+        <a href="{% url 'tourism:index' %}"
+           class="filter-link inline-block text-malachite font-bold hover:underline">
+            <i class="fa-solid fa-rotate-left"></i> Сбросить фильтры
+        </a>
+    </div>
+    {% endfor %}
+</div>

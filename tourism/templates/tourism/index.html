@@ -1,0 +1,99 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Каталог туров — TM IMPRESSIVE{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO ================= -->
+<section class="relative bg-malachite text-white">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="relative max-w-6xl mx-auto px-4 py-20 md:py-28 text-center">
+        <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+            ⭐ Каталог туров
+        </span>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+            Туры по Туркменистану
+        </h1>
+        <p class="max-w-2xl mx-auto text-lg md:text-xl text-cream/90">
+            Выберите направление мечты — от древних городов до пустынных приключений
+        </p>
+    </div>
+</section>
+
+<!-- ================= КАТАЛОГ С САЙДБАРОМ ================= -->
+<section id="catalog" class="py-12 bg-cream min-h-screen">
+    <div class="max-w-7xl mx-auto px-4">
+
+        <!-- 🎯 Именно это содержимое AJAX подменяет целиком -->
+        <div id="catalog-wrapper"
+             class="grid grid-cols-1 lg:grid-cols-4 gap-8 transition-opacity duration-200">
+            {% include 'tourism/_catalog.html' %}
+        </div>
+
+    </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="py-16 md:py-20 bg-malachite text-white">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4">
+            Не нашли подходящий тур?
+        </h2>
+        <p class="text-cream/90 text-lg mb-8">
+            Составим индивидуальный маршрут под ваши пожелания! ⏱️
+        </p>
+        <a href="{% url 'contacts:index' %}"
+           class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
+            Заказать индивидуальный тур
+        </a>
+    </div>
+</section>
+
+{% endblock %}
+
+
+{# ⚠️ ВАЖНО: блок scripts ВНЕ блока content! (раньше он был внутри — #}
+{#    из-за этого скрипт вставлялся на страницу ДВА раза)             #}
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const wrapper = document.getElementById('catalog-wrapper');
+    if (!wrapper) return;
+
+    // 🚀 Загружаем каталог (сайдбар + туры) без перезагрузки страницы
+    function loadCatalog(url, pushHistory) {
+        wrapper.style.opacity = '0.35';
+        wrapper.style.pointerEvents = 'none';
+
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(function (response) { return response.text(); })
+            .then(function (html) {
+                wrapper.innerHTML = html;
+                wrapper.style.opacity = '1';
+                wrapper.style.pointerEvents = 'auto';
+                if (pushHistory) {
+                    history.pushState({ ajax: true }, '', url);
+                }
+            })
+            .catch(function () {
+                window.location.href = url;   // если что-то пошло не так — обычный переход
+            });
+    }
+
+    // 🖱️ Делегирование клика: работает даже после подмены HTML
+    document.addEventListener('click', function (e) {
+        const link = e.target.closest('a.filter-link');
+        if (!link || !wrapper.contains(link)) return;
+
+        e.preventDefault();
+        loadCatalog(link.getAttribute('href'), true);
+    });
+
+    // ⬅️ Кнопка "Назад" в браузере тоже работает
+    window.addEventListener('popstate', function () {
+        loadCatalog(window.location.pathname + window.location.search, false);
+    });
+});
+</script>
+{% endblock %}

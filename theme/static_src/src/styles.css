@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+/**
+  * A catch-all path to Django template files, JavaScript, and Python files
+  * that contain Tailwind CSS classes and will be scanned by Tailwind to generate the final CSS file.
+  *
+  * If your final CSS file is not being updated after code changes, you may want to broaden or narrow
+  * the scope of this path.
+  */
+
+@theme {
+    /* 🟢 Малахитовый — основной, для заголовков и шапки */
+    --color-malachite: #0B3D2E;
+
+    /* 🟡 Латунь — акценты, кнопки, текст на тёмном фоне */
+    --color-brass: #D4AF37;
+
+    /* 🟢 Бирюзовый — подзаголовки */
+    --color-teal: #3D7A6F;
+
+    /* ⚫ Тёмно-серый — основной текст */
+    --color-ink: #2C2C2C;
+
+    /* 🤍 Кремовый — фон страницы */
+    --color-cream: #F8F5F0;
+
+    /* \(тёмный для футера) */
+    --color-forest-dark: #082419;  
+
+      --animate-marquee: marquee 30s linear infinite;
+}
+
+
+@source "../../../**/*.{html,py,js}";
+
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 1s ease-out;
+}
+
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

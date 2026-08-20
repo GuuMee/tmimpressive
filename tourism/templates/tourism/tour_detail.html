@@ -1,0 +1,232 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}{{ tour.title }} — TM IMPRESSIVE{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO с фото ================= -->
+<section class="relative bg-malachite text-white">
+    {% if tour.main_image %}
+        <img src="{{ tour.main_image.url }}" alt="{{ tour.title }}"
+             class="absolute inset-0 w-full h-full object-cover opacity-30">
+    {% endif %}
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="relative max-w-6xl mx-auto px-4 py-20 md:py-28">
+        <a href="{% url 'tourism:index' %}"
+           class="inline-flex items-center gap-2 text-cream/80 hover:text-brass transition mb-6">
+            <i class="fa-solid fa-arrow-left"></i> Назад к турам
+        </a>
+        <div class="flex flex-wrap gap-2 mb-4">
+            <span class="px-4 py-1 rounded-full bg-brass text-malachite text-sm font-bold">
+                {{ tour.get_category_display }}
+            </span>
+            <span class="px-4 py-1 rounded-full bg-white/20 text-white text-sm font-bold">
+                {{ tour.get_tour_type_display }}
+            </span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">{{ tour.title }}</h1>
+        {% if tour.direction %}
+        <p class="text-lg md:text-xl text-cream/90">
+            <i class="fa-solid fa-location-dot text-brass"></i> {{ tour.direction }}
+        </p>
+        {% endif %}
+    </div>
+</section>
+
+<!-- ================= ОСНОВНОЙ КОНТЕНТ ================= -->
+<section class="py-16 bg-cream">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- ===== ЛЕВАЯ КОЛОНКА ===== -->
+            <div class="lg:col-span-2 space-y-10">
+
+                <!-- 📝 Описание -->
+                <div class="bg-white rounded-2xl p-8 shadow-md">
+                    <h2 class="text-2xl font-bold text-malachite mb-4">О туре</h2>
+                    <p class="text-ink/80 leading-relaxed text-lg">{{ tour.short_description }}</p>
+                    {% if tour.full_description %}
+                        <div class="text-ink/70 leading-relaxed mt-4">
+                            {{ tour.full_description|linebreaks }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- 📷 Фотогалерея -->
+                {% if images %}
+                <div class="bg-white rounded-2xl p-8 shadow-md">
+                    <h2 class="text-2xl font-bold text-malachite mb-6">📷 Фотогалерея</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        {% for img in images %}
+                        <div class="group relative rounded-xl overflow-hidden shadow aspect-square">
+                            <img src="{{ img.image.url }}" alt="{{ img.caption }}"
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- 📅 Программа по дням -->
+                {% if days %}
+                <div class="bg-white rounded-2xl p-8 shadow-md">
+                    <h2 class="text-2xl font-bold text-malachite mb-6">📅 Программа тура</h2>
+                    <div class="space-y-6">
+                        {% for day in days %}
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-malachite text-brass font-bold text-lg">
+                                {{ day.day_number }}
+                            </div>
+                            <div class="pt-1">
+                                <h3 class="font-bold text-malachite text-lg mb-1">{{ day.title }}</h3>
+                                <p class="text-ink/70 leading-relaxed">{{ day.description }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- 💎 Сравнение категорий -->
+                {% if features %}
+                <div class="bg-white rounded-2xl p-8 shadow-md">
+                    <h2 class="text-2xl font-bold text-malachite mb-6">💎 Сравнение категорий</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-center border-collapse">
+                            <thead>
+                                <tr class="bg-malachite text-white">
+                                    <th class="text-left p-4 rounded-tl-xl">Что входит</th>
+                                    <th class="p-4">💰 Бюджет</th>
+                                    <th class="p-4">⭐ Стандарт</th>
+                                    <th class="p-4 rounded-tr-xl">👑 Премиум</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for f in features %}
+                                <tr class="border-b border-cream {% cycle '' 'bg-cream/40' %}">
+                                    <td class="text-left p-4 font-semibold text-malachite">{{ f.feature }}</td>
+                                    <td class="p-4">
+                                        {% if f.budget %}
+                                            <span class="text-green-600 text-xl">✔</span>
+                                            <div class="text-xs text-ink/60 mt-1">{{ f.budget }}</div>
+                                        {% else %}
+                                            <span class="text-red-400 text-xl">✖</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="p-4">
+                                        {% if f.standard %}
+                                            <span class="text-green-600 text-xl">✔</span>
+                                            <div class="text-xs text-ink/60 mt-1">{{ f.standard }}</div>
+                                        {% else %}
+                                            <span class="text-red-400 text-xl">✖</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="p-4">
+                                        {% if f.premium %}
+                                            <span class="text-green-600 text-xl">✔</span>
+                                            <div class="text-xs text-ink/60 mt-1">{{ f.premium }}</div>
+                                        {% else %}
+                                            <span class="text-red-400 text-xl">✖</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- ✅ Включено / Не включено -->
+                {% if includes %}
+                <div class="bg-white rounded-2xl p-8 shadow-md">
+                    <h2 class="text-2xl font-bold text-malachite mb-6">Что входит в стоимость</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-bold text-green-600 mb-3">✔ Включено</h3>
+                            <ul class="space-y-2">
+                                {% for item in includes %}
+                                    {% if item.is_included %}
+                                    <li class="flex items-start gap-2 text-ink/70">
+                                        <span class="text-green-500 mt-0.5">✔</span> {{ item.text }}
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-red-500 mb-3">✖ Оплачивается отдельно</h3>
+                            <ul class="space-y-2">
+                                {% for item in includes %}
+                                    {% if not item.is_included %}
+                                    <li class="flex items-start gap-2 text-ink/70">
+                                        <span class="text-red-400 mt-0.5">✖</span> {{ item.text }}
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+
+            <!-- ===== ПРАВАЯ КОЛОНКА (цены) ===== -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-2xl p-8 shadow-md sticky top-24">
+
+                    <div class="text-center mb-6">
+                        <span class="text-ink/50 text-sm">Стоимость от</span>
+                        <div class="text-4xl font-extrabold text-malachite">
+                            ${{ tour.price_from|floatformat:0 }}
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 mb-6 pb-6 border-b border-cream">
+                        <li class="flex items-center gap-3 text-ink/70">
+                            <i class="fa-regular fa-clock text-teal w-5"></i>
+                            Длительность: <b class="text-malachite">{{ tour.duration_days }} дн.</b>
+                        </li>
+                        {% if tour.direction %}
+                        <li class="flex items-center gap-3 text-ink/70">
+                            <i class="fa-solid fa-location-dot text-teal w-5"></i>
+                            {{ tour.direction }}
+                        </li>
+                        {% endif %}
+                        {% if tour.season %}
+                        <li class="flex items-center gap-3 text-ink/70">
+                            <i class="fa-solid fa-calendar text-teal w-5"></i>
+                            {{ tour.season }}
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                    {% if prices %}
+                    <h3 class="font-bold text-malachite mb-3">Цены по категориям:</h3>
+                    <ul class="space-y-2 mb-6 text-sm">
+                        {% for p in prices %}
+                        <li class="flex justify-between items-center py-2 border-b border-cream">
+                            <span class="text-ink/70">{{ p.get_category_display }}
+                                <span class="text-ink/40">({{ p.get_season_display }})</span>
+                            </span>
+                            <b class="text-malachite">${{ p.price|floatformat:0 }}</b>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    <a href="{% url 'contacts:index' %}"
+                       class="block text-center px-6 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-lg hover:scale-105 transition-transform duration-200">
+                        📩 Оставить заявку
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

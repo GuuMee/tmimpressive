@@ -1,0 +1,149 @@
+{# ============================================================ #}
+{# 📁 tourism/templates/tourism/_filters.html                    #}
+{# 🆕 НОВЫЙ ФАЙЛ — сайдбар со ВСЕМИ 6 фильтрами                  #}
+{# ============================================================ #}
+{% load tour_filters %}
+
+<div class="bg-white rounded-2xl p-6 shadow-md lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
+
+    <div class="flex items-center justify-between mb-5">
+        <h2 class="text-lg font-bold text-malachite">
+            <i class="fa-solid fa-sliders text-brass"></i> Фильтры
+        </h2>
+        {% if has_filters %}
+        <a href="{% url 'tourism:index' %}"
+           class="filter-link text-xs font-semibold text-ink/50 hover:text-malachite transition">
+            <i class="fa-solid fa-rotate-left"></i> Сбросить
+        </a>
+        {% endif %}
+    </div>
+
+    {# ============ 🏷️ ТИП ТУРИЗМА (малахит) ============ #}
+    <h3 class="text-xs font-bold text-ink/40 uppercase tracking-wider mb-2">Тип туризма</h3>
+    <ul class="space-y-1 mb-6">
+        <li>
+            <a href="{% filter_url type='' %}"
+               class="filter-link flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition
+               {% if not selected.type %}bg-malachite text-white{% else %}text-ink/70 hover:bg-cream{% endif %}">
+                <i class="fa-solid fa-globe w-4 text-center"></i> Все
+            </a>
+        </li>
+        {% for code, name, icon in types_with_icons %}
+        <li>
+            <a href="{% filter_url type=code %}"
+               class="filter-link flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition
+               {% if selected.type == code %}bg-malachite text-white{% else %}text-ink/70 hover:bg-cream{% endif %}">
+                <i class="fa-solid {{ icon }} w-4 text-center"></i> {{ name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {# ============ 💎 КАТЕГОРИЯ (латунь) ============ #}
+    <h3 class="text-xs font-bold text-ink/40 uppercase tracking-wider mb-2">Категория</h3>
+    <ul class="space-y-1 mb-6">
+        <li>
+            <a href="{% filter_url category='' %}"
+               class="filter-link flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition
+               {% if not selected.category %}bg-brass text-malachite{% else %}text-ink/70 hover:bg-cream{% endif %}">
+                <i class="fa-solid fa-globe w-4 text-center"></i> Все
+            </a>
+        </li>
+        {% for code, name, icon in categories_with_icons %}
+        <li>
+            <a href="{% filter_url category=code %}"
+               class="filter-link flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition
+               {% if selected.category == code %}bg-brass text-malachite{% else %}text-ink/70 hover:bg-cream{% endif %}">
+                <i class="fa-solid {{ icon }} w-4 text-center"></i> {{ name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {# ============ 📍 НАПРАВЛЕНИЕ (бирюза) ============ #}
+    {% if directions %}
+    <h3 class="text-xs font-bold text-ink/40 uppercase tracking-wider mb-2">Направление</h3>
+    <ul class="space-y-1 mb-6">
+        <li>
+            <a href="{% filter_url direction='' %}"
+               class="filter-link flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition
+               {% if not selected.direction %}bg-teal text-white{% else %}text-ink/70 hover:bg-cream{% endif %}">
+                <i class="fa-solid fa-globe w-4 text-center"></i> Все
+            </a>
+        </li>
+        {% for d in directions %}
+        <li>
+            <a href="{% filter_url direction=d %}"
+               class="filter-link flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition
+               {% if selected.direction == d %}bg-teal text-white{% else %}text-ink/70 hover:bg-cream{% endif %}">
+                <i class="fa-solid fa-location-dot w-4 text-center"></i> {{ d }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {# ============ ⏱️ ДЛИТЕЛЬНОСТЬ (бирюза) ============ #}
+    <h3 class="text-xs font-bold text-ink/40 uppercase tracking-wider mb-2">Длительность</h3>
+    <ul class="space-y-1 mb-6">
+        <li>
+            <a href="{% filter_url duration='' %}"
+               class="filter-link flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition
+               {% if not selected.duration %}bg-teal text-white{% else %}text-ink/70 hover:bg-cream{% endif %}">
+                <i class="fa-solid fa-globe w-4 text-center"></i> Любая
+            </a>
+        </li>
+        {% for code, name, icon in duration_choices %}
+        <li>
+            <a href="{% filter_url duration=code %}"
+               class="filter-link flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition
+               {% if selected.duration == code %}bg-teal text-white{% else %}text-ink/70 hover:bg-cream{% endif %}">
+                <i class="fa-solid {{ icon }} w-4 text-center"></i> {{ name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {# ============ 🗓️ СЕЗОН (бирюза) ============ #}
+    <h3 class="text-xs font-bold text-ink/40 uppercase tracking-wider mb-2">Сезон</h3>
+    <ul class="space-y-1 mb-6">
+        <li>
+            <a href="{% filter_url season='' %}"
+               class="filter-link flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition
+               {% if not selected.season %}bg-teal text-white{% else %}text-ink/70 hover:bg-cream{% endif %}">
+                <i class="fa-solid fa-globe w-4 text-center"></i> Любой
+            </a>
+        </li>
+        {% for code, name, icon in season_choices %}
+        <li>
+            <a href="{% filter_url season=code %}"
+               class="filter-link flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition
+               {% if selected.season == code %}bg-teal text-white{% else %}text-ink/70 hover:bg-cream{% endif %}">
+                <i class="fa-solid {{ icon }} w-4 text-center"></i> {{ name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {# ============ 💵 ЦЕНА (бирюза) ============ #}
+    <h3 class="text-xs font-bold text-ink/40 uppercase tracking-wider mb-2">Цена</h3>
+    <ul class="space-y-1">
+        <li>
+            <a href="{% filter_url price='' %}"
+               class="filter-link flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition
+               {% if not selected.price %}bg-teal text-white{% else %}text-ink/70 hover:bg-cream{% endif %}">
+                <i class="fa-solid fa-globe w-4 text-center"></i> Любая
+            </a>
+        </li>
+        {% for code, name, icon in price_choices %}
+        <li>
+            <a href="{% filter_url price=code %}"
+               class="filter-link flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition
+               {% if selected.price == code %}bg-teal text-white{% else %}text-ink/70 hover:bg-cream{% endif %}">
+                <i class="fa-solid {{ icon }} w-4 text-center"></i> {{ name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
