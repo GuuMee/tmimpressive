@@ -3,10 +3,15 @@
 <header class="bg-malachite text-brass w-full shadow">
   <div class="flex items-center justify-between py-4 px-6 md:py-6 md:px-8">
 
-    <!-- Логотип/название -->
-    <div class="flex items-center gap-3">
-      <span class="text-xl md:text-2xl font-extrabold text-brass uppercase tracking-widest">TM IMPRESSIVE</span>
-    </div>
+    <!-- 🏠 Логотип — кликабельный, ведёт на главную -->
+    <a href="{% url 'home' %}"
+       class="flex items-center gap-3 group"
+       aria-label="TM IMPRESSIVE — на главную">
+      <span class="text-xl md:text-2xl font-extrabold text-brass uppercase tracking-widest
+                   group-hover:text-white transition-colors duration-200">
+        TM IMPRESSIVE
+      </span>
+    </a>
 
     <!-- 🍔 Кнопка-бургер (только на мобилке, скрыта на десктопе) -->
     <input type="checkbox" id="menu-toggle" class="hidden peer">

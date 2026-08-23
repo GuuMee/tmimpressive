@@ -1,0 +1,175 @@
+{# 📁 main/templates/main/partials/assistant_widget.html #}
+{# 🤖 Виртуальный ассистент — плавающий чат в правом нижнем углу #}
+
+<div id="tm-assistant" class="fixed bottom-6 right-6 z-50">
+
+    {# ---------- Кнопка открытия ---------- #}
+    <button id="tma-toggle" type="button" aria-label="Открыть чат с ассистентом"
+            class="w-16 h-16 flex items-center justify-center rounded-full
+                   bg-brass text-malachite text-2xl shadow-xl
+                   hover:scale-110 transition-transform duration-200">
+        <i class="fa-solid fa-robot"></i>
+    </button>
+
+    {# ---------- Окно чата ---------- #}
+    <div id="tma-panel"
+         class="hidden flex-col absolute bottom-20 right-0
+                w-[90vw] max-w-sm h-[70vh] max-h-[560px]
+                bg-white rounded-2xl shadow-2xl overflow-hidden">
+
+        <!-- Шапка -->
+        <div class="bg-malachite text-white px-5 py-4 flex items-center gap-3 shrink-0">
+            <div class="w-10 h-10 rounded-full bg-brass text-malachite flex items-center justify-center text-lg">
+                <i class="fa-solid fa-robot"></i>
+            </div>
+            <div class="flex-1">
+                <p class="font-bold leading-tight">Виртуальный ассистент</p>
+                <p class="text-xs text-cream/70 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
+                    на связи 24/7
+                </p>
+            </div>
+            <button id="tma-close" type="button" aria-label="Закрыть"
+                    class="text-white/70 hover:text-white text-xl leading-none">&times;</button>
+        </div>
+
+        <!-- Лента сообщений -->
+        <div id="tma-messages" class="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-cream"></div>
+
+        <!-- Кнопки-подсказки -->
+        <div id="tma-chips" class="px-4 pb-2 flex flex-wrap gap-2 bg-cream shrink-0"></div>
+
+        <!-- Поле ввода -->
+        <div class="p-3 border-t border-cream bg-white flex gap-2 shrink-0">
+            <input id="tma-input" type="text" autocomplete="off"
+                   placeholder="Напишите вопрос…"
+                   class="flex-1 px-4 py-2.5 rounded-full bg-cream text-ink text-sm
+                          outline-none focus:ring-2 focus:ring-brass">
+            <button id="tma-send" type="button" aria-label="Отправить"
+                    class="w-11 h-11 shrink-0 rounded-full bg-malachite text-white
+                           hover:bg-teal transition-colors">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    {% csrf_token %}
+</div>
+
+<script>
+(function () {
+    const root     = document.getElementById('tm-assistant');
+    const toggle   = document.getElementById('tma-toggle');
+    const panel    = document.getElementById('tma-panel');
+    const closeBtn = document.getElementById('tma-close');
+    const list     = document.getElementById('tma-messages');
+    const chipsBox = document.getElementById('tma-chips');
+    const input    = document.getElementById('tma-input');
+    const sendBtn  = document.getElementById('tma-send');
+
+    const csrf = root.querySelector('[name=csrfmiddlewaretoken]').value;
+    let started = false;
+
+    // ---------- показать сообщение ----------
+    function addMessage(html, who) {
+        const row = document.createElement('div');
+        row.className = 'flex ' + (who === 'user' ? 'justify-end' : 'justify-start');
+
+        const bubble = document.createElement('div');
+        bubble.className = who === 'user'
+            ? 'max-w-[80%] px-4 py-2.5 rounded-2xl rounded-br-sm bg-malachite text-white text-sm leading-relaxed'
+            : 'max-w-[85%] px-4 py-2.5 rounded-2xl rounded-bl-sm bg-white text-ink text-sm leading-relaxed shadow-sm';
+        bubble.innerHTML = html.replace(/\n/g, '<br>');
+
+        row.appendChild(bubble);
+        list.appendChild(row);
+        list.scrollTop = list.scrollHeight;
+        return row;
+    }
+
+    // ---------- кнопка-ссылка под ответом ----------
+    function addLink(link) {
+        const row = document.createElement('div');
+        row.className = 'flex justify-start';
+        row.innerHTML = '<a href="' + link.url + '" class="px-4 py-2 rounded-full bg-brass ' +
+                        'text-malachite text-sm font-bold hover:scale-105 transition-transform">' +
+                        link.text + '</a>';
+        list.appendChild(row);
+        list.scrollTop = list.scrollHeight;
+    }
+
+    // ---------- подсказки ----------
+    function renderChips(chips) {
+        chipsBox.innerHTML = '';
+        (chips || []).forEach(function (text) {
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.textContent = text;
+            chip.className = 'px-3 py-1.5 rounded-full border border-teal/40 text-teal ' +
+                             'text-xs font-semibold hover:bg-teal hover:text-white transition';
+            chip.addEventListener('click', function () { send(text); });
+            chipsBox.appendChild(chip);
+        });
+    }
+
+    // ---------- «печатает…» ----------
+    function showTyping() {
+        return addMessage('<span class="text-ink/40">печатает…</span>', 'bot');
+    }
+
+    // ---------- отправка вопроса ----------
+    function send(question) {
+        if (question) { addMessage(question, 'user'); }
+        input.value = '';
+        chipsBox.innerHTML = '';
+        const typing = showTyping();
+
+        fetch("{% url 'assistant:ask' %}", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf },
+            body: JSON.stringify({ question: question || '' })
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            typing.remove();
+            addMessage(data.answer, 'bot');
+            if (data.link) { addLink(data.link); }
+            renderChips(data.chips);
+        })
+        .catch(function () {
+            typing.remove();
+            addMessage('Связь пропала 😔 Попробуйте ещё раз или напишите нам в WhatsApp.', 'bot');
+        });
+    }
+
+    // ---------- открыть / закрыть ----------
+    function openChat() {
+        panel.classList.remove('hidden');
+        panel.classList.add('flex');
+        toggle.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        if (!started) { started = true; send(''); }   // приветствие
+        input.focus();
+    }
+    function closeChat() {
+        panel.classList.add('hidden');
+        panel.classList.remove('flex');
+        toggle.innerHTML = '<i class="fa-solid fa-robot"></i>';
+    }
+
+    toggle.addEventListener('click', function () {
+        panel.classList.contains('hidden') ? openChat() : closeChat();
+    });
+    closeBtn.addEventListener('click', closeChat);
+
+    sendBtn.addEventListener('click', function () {
+        const q = input.value.trim();
+        if (q) { send(q); }
+    });
+    input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            const q = input.value.trim();
+            if (q) { send(q); }
+        }
+    });
+})();
+</script>

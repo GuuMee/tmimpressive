@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'contacts',
     'cases',
     'search',
-
+    'assistant',
     'tailwind', 
     'theme',
 ]

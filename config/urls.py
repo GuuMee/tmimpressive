@@ -29,6 +29,7 @@ urlpatterns = [
     path('about/', include(('about.urls', 'about'), namespace='about')),
     path('contacts/', include(('contacts.urls', 'contacts'), namespace='contacts')),
     path('cases/', include(('cases.urls', 'cases'), namespace='cases')),
+    path('assistant/', include('assistant.urls')),
     # ... остальные по аналогии
 ]
 

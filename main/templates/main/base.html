@@ -1,4 +1,4 @@
-<!-- main/templates/main/base.html -->
+<!-- 📁 main/templates/main/base.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -8,14 +8,22 @@
     {% load static tailwind_tags %}
     {% tailwind_css %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- ⚡ Alpine.js — нужен для мобильного меню и панели мессенджеров -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-[#F8F5F0] text-ink min-h-screen flex flex-col">
     {% include "main/partials/header.html" %}
+
     <main class="flex-1">
         {% block content %}{% endblock %}
     </main>
+
     {% include "main/partials/footer.html" %}
     {% include "main/partials/messenger_panel.html" %}
+
+    <!-- 🤖 Виртуальный ассистент -->
+    {% include "main/partials/assistant_widget.html" %}
 
     {% block scripts %}{% endblock %}
 </body>

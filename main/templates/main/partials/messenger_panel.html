@@ -1,6 +1,6 @@
 <!-- main/templates/main/partials/messenger_panel.html -->
 <div x-data="{ open: false }"
-     class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+     class="fixed bottom-28 right-6 z-40 flex flex-col items-end gap-3">
 
     <!-- Кнопки мессенджеров -->
     <div class="flex-col gap-3 hidden md:!flex"
@@ -56,9 +56,11 @@
         </button>
     </div>
 
-    <!-- Подпись (только на десктопе) -->
+    {# 🚫 Плашка «Ответим в течение 1 часа» — УБРАНА по правкам #}
+    {% comment %}
     <div class="hidden md:block bg-[#0B3D2E] text-white text-xs px-3 py-1.5 rounded-full shadow-lg">
         Ответим в течение 1 часа ⭐
     </div>
+    {% endcomment %}
 
 </div>
