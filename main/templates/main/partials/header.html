@@ -27,6 +27,19 @@
       <a href="{% url 'about:index' %}" class="font-semibold text-white hover:text-brass transition">О компании</a>
       <a href="{% url 'contacts:index' %}" class="font-semibold text-white hover:text-brass transition">Контакты</a>
 
+              <!-- 🔍 Поиск (десктоп) — ИСПРАВЛЕННЫЙ -->
+      <form action="{% url 'search:index' %}" method="get" role="search"
+            class="relative flex items-center">
+        <label for="header-q" class="sr-only">Поиск по сайту</label>
+        <input id="header-q" type="search" name="q" placeholder="Поиск…"
+               class="w-32 focus:w-56 pl-10 pr-3 py-2 rounded-full text-sm
+                      bg-white/10 text-white placeholder-white/50
+                      outline-none focus:bg-white focus:text-ink
+                      transition-all duration-300">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2
+                  text-brass text-sm pointer-events-none"></i>
+      </form>
+
       <!-- Переключатель языков (десктоп) -->
       <div class="dropdown dropdown-end ml-4 hidden lg:block">
           <div tabindex="0" role="button" class="flex items-center gap-2 px-3 py-1 rounded font-semibold text-brass hover:bg-brass hover:text-malachite transition cursor-pointer">
@@ -49,7 +62,17 @@
 
     <!-- 📱 Меню для МОБИЛКИ (раскрывается по клику на бургер) -->
     <nav class="hidden peer-checked:flex lg:hidden flex-col gap-4 absolute top-[64px] left-0 w-full bg-malachite px-6 py-4 shadow-lg z-40">
-      <a href="{% url 'tourism:index' %}" class="font-semibold text-white hover:text-brass transition">Туризм и MICE</a>
+      
+              <!-- 🔍 Поиск (мобилка) -->
+      <form action="{% url 'search:index' %}" method="get" role="search" class="flex gap-2">
+        <label for="header-q-mobile" class="sr-only">Поиск по сайту</label>
+        <input id="header-q-mobile" type="search" name="q" placeholder="Поиск по сайту…" class="flex-1 px-4 py-2 rounded-full text-sm bg-white text-ink outline-none">
+        <button type="submit"  class="px-4 py-2 rounded-full bg-brass text-malachite font-bold">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+      
+        <a href="{% url 'tourism:index' %}" class="font-semibold text-white hover:text-brass transition">Туризм и MICE</a>
       <a href="{% url 'consulting:index' %}" class="font-semibold text-white hover:text-brass transition">Бизнес-консалтинг</a>
       <a href="{% url 'linguistics:index' %}" class="font-semibold text-white hover:text-brass transition">Лингвистика и оборудование</a>
       <a href="{% url 'about:index' %}" class="font-semibold text-white hover:text-brass transition">О компании</a>

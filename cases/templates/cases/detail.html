@@ -1,0 +1,138 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}{{ case.title }} — Кейс{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO ================= -->
+<section class="relative bg-malachite text-white py-20">
+    <div class="absolute inset-0 bg-black/20"></div>
+    {% if case.image %}
+        <img src="{{ case.image.url }}" alt="{{ case.title }}"
+             class="absolute inset-0 w-full h-full object-cover opacity-30">
+    {% endif %}
+    
+    <div class="relative max-w-6xl mx-auto px-4 text-center">
+        <a href="{% url 'cases:list' %}"
+           class="inline-flex items-center gap-2 text-cream/70 hover:text-brass transition mb-6">
+            <i class="fa-solid fa-arrow-left"></i> К кейсам
+        </a>
+        
+        <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass text-malachite
+               text-sm font-bold">
+            {{ case.get_direction_display }}
+        </span>
+        
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-6">{{ case.title }}</h1>
+        
+        {% if case.client %}
+        <p class="text-xl text-cream/80">
+            📌 Клиент: <b>{{ case.client }}</b>
+        </p>
+        {% endif %}
+    </div>
+</section>
+
+<!-- ================= КОНТЕНТ ================= -->
+<section class="py-16 bg-cream">
+    <div class="max-w-4xl mx-auto px-4 space-y-12">
+        
+        <!-- Основное фото -->
+        {% if case.image %}
+        <div class="rounded-2xl overflow-hidden shadow-lg">
+            <img src="{{ case.image.url }}" alt="{{ case.title }}"
+                 class="w-full h-auto object-cover">
+        </div>
+        {% endif %}
+        
+        <!-- Описание -->
+        {% if case.short_description or case.full_description %}
+        <div class="bg-white rounded-2xl p-8 shadow-md">
+            <h2 class="text-2xl font-bold text-malachite mb-4">О проекте</h2>
+            {% if case.short_description %}
+            <p class="text-ink/70 leading-relaxed text-lg mb-4">
+                {{ case.short_description }}
+            </p>
+            {% endif %}
+            {% if case.full_description %}
+            <div class="text-ink/60 leading-relaxed">
+                {{ case.full_description|linebreaks }}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <!-- Результат -->
+        {% if case.result %}
+        <div class="bg-white rounded-2xl p-8 shadow-md border-l-4 border-brass">
+            <h2 class="text-2xl font-bold text-malachite mb-4">
+                <i class="fa-solid fa-circle-check text-teal mr-2"></i>
+                Результат
+            </h2>
+            <p class="text-ink/70 leading-relaxed text-lg font-semibold">
+                {{ case.result }}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- ================= ПОХОЖИЕ КЕЙСЫ ================= -->
+{% if similar %}
+<section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-malachite mb-8 text-center">
+            Другие проекты
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for s_case in similar %}
+            <a href="{% url 'cases:detail' s_case.slug %}"
+               class="group bg-cream rounded-2xl overflow-hidden shadow-md
+                      hover:shadow-lg transition-all">
+                
+                <div class="relative h-40 bg-gradient-to-br from-malachite to-teal">
+                    {% if s_case.image %}
+                        <img src="{{ s_case.image.url }}" alt="{{ s_case.title }}"
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    {% else %}
+                        <div class="w-full h-full flex items-center justify-center">
+                            <i class="fa-solid fa-trophy text-brass/60 text-3xl"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="p-4">
+                    <h3 class="font-bold text-malachite group-hover:text-teal transition mb-1">
+                        {{ s_case.title }}
+                    </h3>
+                    {% if s_case.client %}
+                    <p class="text-xs text-ink/40">{{ s_case.client }}</p>
+                    {% endif %}
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ================= CTA ================= -->
+<section class="py-16 bg-malachite text-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Хотите свой кейс?
+        </h2>
+        <p class="text-lg text-cream/80 mb-8">
+            Давайте создадим вместе что-то впечатляющее
+        </p>
+        <a href="{% url 'contacts:index' %}"
+           class="inline-block px-8 py-4 rounded-full bg-brass text-malachite
+                  font-bold text-lg hover:scale-105 transition-transform">
+            💬 Начать проект
+        </a>
+    </div>
+</section>
+
+{% endblock %}

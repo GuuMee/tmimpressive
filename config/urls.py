@@ -30,6 +30,7 @@ urlpatterns = [
     path('contacts/', include(('contacts.urls', 'contacts'), namespace='contacts')),
     path('cases/', include(('cases.urls', 'cases'), namespace='cases')),
     path('assistant/', include('assistant.urls')),
+    path('search/', include(('search.urls', 'search'), namespace='search')), 
     # ... остальные по аналогии
 ]
 

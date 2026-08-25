@@ -14,4 +14,6 @@ def home(request):
         'popular_tours': popular_tours,
         'featured_cases': featured_cases,
     }
+
+    
     return render(request, 'main/home.html', context)

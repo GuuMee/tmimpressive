@@ -1,0 +1,253 @@
+{% extends "main/base.html" %}
+{% load search_extras %}
+
+{% block title %}
+    {% if query %}Поиск: {{ query }}{% else %}Поиск по сайту{% endif %} — TM IMPRESSIVE
+{% endblock %}
+
+{% block content %}
+
+<!-- ================= ПОИСКОВАЯ ШАПКА ================= -->
+<section class="bg-malachite text-white py-14 md:py-20">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h1 class="text-3xl md:text-5xl font-extrabold mb-6">Поиск по сайту</h1>
+
+        <form action="{% url 'search:index' %}" method="get" role="search"
+              class="flex gap-2 max-w-2xl mx-auto">
+            <label for="q" class="sr-only">Поисковый запрос</label>
+            <input id="q" type="search" name="q" value="{{ query }}" autofocus
+                   placeholder="Тур, город, услуга…"
+                   class="flex-1 px-5 py-3.5 rounded-full text-ink bg-white
+                          outline-none focus:ring-2 focus:ring-brass">
+            <button type="submit"
+                    class="px-6 py-3.5 rounded-full bg-brass text-malachite font-bold
+                           hover:scale-105 transition-transform">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span class="hidden sm:inline ml-1">Найти</span>
+            </button>
+        </form>
+
+        {% if query and not too_short %}
+        <p class="mt-5 text-cream/80">
+            {% if has_results %}
+                Найдено результатов: <b class="text-brass">{{ counts.all }}</b>
+                по запросу «{{ query }}»
+            {% else %}
+                Ничего не найдено по запросу «{{ query }}»
+            {% endif %}
+        </p>
+        {% endif %}
+    </div>
+</section>
+
+<!-- ================= РАЗДЕЛЫ ================= -->
+{% if has_results %}
+<section class="bg-white border-b border-cream sticky top-0 z-20">
+    <div class="max-w-6xl mx-auto px-4 flex gap-2 overflow-x-auto py-3">
+        {% with base=query|urlencode %}
+        <a href="?q={{ base }}"
+           class="shrink-0 px-4 py-2 rounded-full text-sm font-bold transition
+           {% if section == 'all' %}bg-malachite text-white{% else %}text-ink/60 hover:bg-cream{% endif %}">
+            Всё <span class="opacity-60">{{ counts.all }}</span>
+        </a>
+        {% if counts.tours %}
+        <a href="?q={{ base }}&section=tours"
+           class="shrink-0 px-4 py-2 rounded-full text-sm font-bold transition
+           {% if section == 'tours' %}bg-malachite text-white{% else %}text-ink/60 hover:bg-cream{% endif %}">
+            <i class="fa-solid fa-plane-departure"></i>
+            Туры <span class="opacity-60">{{ counts.tours }}</span>
+        </a>
+        {% endif %}
+        {% if counts.cases %}
+        <a href="?q={{ base }}&section=cases"
+           class="shrink-0 px-4 py-2 rounded-full text-sm font-bold transition
+           {% if section == 'cases' %}bg-malachite text-white{% else %}text-ink/60 hover:bg-cream{% endif %}">
+            <i class="fa-solid fa-trophy"></i>
+            Кейсы <span class="opacity-60">{{ counts.cases }}</span>
+        </a>
+        {% endif %}
+        {% if counts.pages %}
+        <a href="?q={{ base }}&section=pages"
+           class="shrink-0 px-4 py-2 rounded-full text-sm font-bold transition
+           {% if section == 'pages' %}bg-malachite text-white{% else %}text-ink/60 hover:bg-cream{% endif %}">
+            <i class="fa-solid fa-file-lines"></i>
+            Страницы <span class="opacity-60">{{ counts.pages }}</span>
+        </a>
+        {% endif %}
+        {% endwith %}
+    </div>
+</section>
+{% endif %}
+
+<!-- ================= РЕЗУЛЬТАТЫ ================= -->
+<section class="py-12 bg-cream min-h-[50vh]">
+    <div class="max-w-6xl mx-auto px-4 space-y-12">
+
+        {# ---------- запрос слишком короткий ---------- #}
+        {% if too_short %}
+        <div class="text-center py-16 bg-white rounded-2xl">
+            <i class="fa-solid fa-keyboard text-ink/20 text-5xl mb-4"></i>
+            <p class="text-ink/60 text-lg">
+                Введите минимум {{ min_length }} символа для поиска
+            </p>
+        </div>
+
+        {# ---------- страница открыта без запроса ---------- #}
+        {% elif not query %}
+        <div class="text-center py-16 bg-white rounded-2xl">
+            <i class="fa-solid fa-magnifying-glass text-brass/40 text-5xl mb-4"></i>
+            <p class="text-ink/60 text-lg mb-6">
+                Что вы ищете? Введите запрос в поле выше
+            </p>
+            <div class="flex flex-wrap gap-2 justify-center">
+                {% for hint in "Мерв,Ашхабад,перевод,виза,MICE"|slice:":0" %}{% endfor %}
+                <a href="?q=Мерв" class="px-4 py-2 rounded-full bg-cream text-teal text-sm font-semibold hover:bg-teal hover:text-white transition">Мерв</a>
+                <a href="?q=Ашхабад" class="px-4 py-2 rounded-full bg-cream text-teal text-sm font-semibold hover:bg-teal hover:text-white transition">Ашхабад</a>
+                <a href="?q=перевод" class="px-4 py-2 rounded-full bg-cream text-teal text-sm font-semibold hover:bg-teal hover:text-white transition">перевод</a>
+                <a href="?q=виза" class="px-4 py-2 rounded-full bg-cream text-teal text-sm font-semibold hover:bg-teal hover:text-white transition">виза</a>
+            </div>
+        </div>
+
+        {# ---------- ничего не найдено ---------- #}
+        {% elif not has_results %}
+        <div class="text-center py-16 bg-white rounded-2xl">
+            <i class="fa-solid fa-face-frown text-ink/20 text-5xl mb-4"></i>
+            <p class="text-ink/70 text-lg font-semibold mb-2">Ничего не найдено</p>
+            <p class="text-ink/50 mb-8">
+                Попробуйте другой запрос или напишите нам — подберём вручную
+            </p>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <a href="{% url 'tourism:index' %}"
+                   class="px-6 py-3 rounded-full bg-malachite text-white font-bold hover:bg-teal transition">
+                    🌍 Каталог туров
+                </a>
+                <a href="{% url 'contacts:index' %}"
+                   class="px-6 py-3 rounded-full bg-brass text-malachite font-bold hover:scale-105 transition-transform">
+                    📩 Написать нам
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+        {# ---------- 🌍 ТУРЫ ---------- #}
+        {% if tours and section == 'all' or tours and section == 'tours' %}
+        <div>
+            <h2 class="text-xl font-bold text-malachite mb-5">
+                <i class="fa-solid fa-plane-departure text-brass"></i>
+                Туры <span class="text-ink/40 font-normal">({{ counts.tours }})</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {% for tour in tours %}
+                <a href="{% url 'tourism:tour_detail' tour.slug %}"
+                   class="group bg-white rounded-2xl p-5 shadow-sm hover:shadow-lg
+                          flex gap-4 transition-shadow">
+                    <div class="w-24 h-24 shrink-0 rounded-xl overflow-hidden
+                                bg-gradient-to-br from-malachite to-teal">
+                        {% if tour.main_image %}
+                            <img src="{{ tour.main_image.url }}" alt="{{ tour.title }}"
+                                 class="w-full h-full object-cover">
+                        {% else %}
+                            <div class="w-full h-full flex items-center justify-center">
+                                <i class="fa-solid fa-mountain-sun text-brass/60 text-2xl"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="min-w-0">
+                        <h3 class="font-bold text-malachite group-hover:text-teal transition mb-1">
+                            {{ tour.title|highlight:query }}
+                        </h3>
+                        {% if tour.direction %}
+                        <p class="text-teal text-xs font-semibold mb-1">
+                            <i class="fa-solid fa-location-dot"></i>
+                            {{ tour.direction|highlight:query }}
+                        </p>
+                        {% endif %}
+                        <p class="text-ink/60 text-sm mb-2">
+                            {{ tour.short_description|truncatewords:16|highlight:query }}
+                        </p>
+                        <div class="flex items-center gap-3 text-xs">
+                            <span class="text-ink/50">
+                                <i class="fa-regular fa-clock"></i> {{ tour.duration_days }} дн.
+                            </span>
+                            <span class="text-malachite font-bold">
+                                от ${{ tour.price_from|floatformat:0 }}
+                            </span>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {# ---------- 🏆 КЕЙСЫ ---------- #}
+        {% if cases and section == 'all' or cases and section == 'cases' %}
+        <div>
+            <h2 class="text-xl font-bold text-malachite mb-5">
+                <i class="fa-solid fa-trophy text-brass"></i>
+                Кейсы <span class="text-ink/40 font-normal">({{ counts.cases }})</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {% for case in cases %}
+                <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-lg transition-shadow">
+                    {% if case.client %}
+                    <span class="text-ink/40 text-xs uppercase tracking-wider">
+                        {{ case.client|highlight:query }}
+                    </span>
+                    {% endif %}
+                    <h3 class="font-bold text-malachite mb-2 mt-1">
+                        {{ case.title|highlight:query }}
+                    </h3>
+                    <p class="text-ink/60 text-sm mb-3">
+                        {{ case.short_description|truncatewords:20|highlight:query }}
+                    </p>
+                    {% if case.result %}
+                    <p class="text-sm text-malachite font-semibold pt-3 border-t border-cream">
+                        <i class="fa-solid fa-circle-check text-teal"></i>
+                        {{ case.result|highlight:query }}
+                    </p>
+                    {% endif %}
+                    <a href="{% url 'cases:list' %}"
+                       class="inline-block mt-3 text-teal text-sm font-bold hover:underline">
+                        Все кейсы <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {# ---------- 📄 СТРАНИЦЫ ---------- #}
+        {% if pages and section == 'all' or pages and section == 'pages' %}
+        <div>
+            <h2 class="text-xl font-bold text-malachite mb-5">
+                <i class="fa-solid fa-file-lines text-brass"></i>
+                Страницы сайта <span class="text-ink/40 font-normal">({{ counts.pages }})</span>
+            </h2>
+            <div class="space-y-3">
+                {% for page in pages %}
+                <a href="{% url page.url_name %}"
+                   class="group flex items-start gap-4 bg-white rounded-2xl p-5
+                          shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="w-11 h-11 shrink-0 rounded-xl bg-malachite text-brass
+                                flex items-center justify-center">
+                        <i class="fa-solid {{ page.icon }}"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-malachite group-hover:text-teal transition">
+                            {{ page.title|highlight:query }}
+                        </h3>
+                        <p class="text-ink/60 text-sm">
+                            {{ page.description|highlight:query }}
+                        </p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}
