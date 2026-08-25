@@ -1,45 +1,142 @@
 <!-- main/templates/main/partials/messenger_panel.html -->
-<div x-data="{ open: false }"
+{% load static %}
+
+<div x-data="{ open: false, wechatModal: false, imoModal: false }"
      class="fixed bottom-28 right-6 z-40 flex flex-col items-end gap-3">
 
     <!-- Кнопки мессенджеров -->
-    <div class="flex-col gap-3 hidden md:!flex"
-     :class="{ '!flex': open }">
+    <div class="flex-col gap-2 hidden md:!flex"
+         :class="{ '!flex': open }">
 
         <!-- WhatsApp -->
         <a href="https://wa.me/99371342731" target="_blank" title="WhatsApp"
-           class="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#25D366] text-white text-lg md:text-xl shadow-lg hover:scale-110 transition-transform duration-200">
+           class="w-12 h-12 flex items-center justify-center rounded-full bg-green-500 text-white text-xl hover:scale-110 transition-transform shadow-lg">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
 
         <!-- Telegram -->
-        <a href="https://t.me/username" target="_blank" title="Telegram"
-           class="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#0088cc] text-white text-lg md:text-xl shadow-lg hover:scale-110 transition-transform duration-200">
+        <a href="https://t.me/tmimpressive" target="_blank" title="Telegram"
+           class="w-12 h-12 flex items-center justify-center rounded-full bg-blue-500 text-white text-xl hover:scale-110 transition-transform shadow-lg">
             <i class="fa-brands fa-telegram"></i>
         </a>
 
-        <!-- IMO -->
-        <a href="#" title="IMO"
-           class="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#0a90d4] text-white text-lg md:text-xl shadow-lg hover:scale-110 transition-transform duration-200">
-            <i class="fa-solid fa-comment-dots"></i>
-        </a>
-
-        <!-- WeChat -->
-        <a href="#" title="WeChat"
-           class="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#07C160] text-white text-lg md:text-xl shadow-lg hover:scale-110 transition-transform duration-200">
+        <!-- WeChat — QR код в попапе -->
+        <button @click="wechatModal = true" title="WeChat"
+           class="w-12 h-12 flex items-center justify-center rounded-full bg-green-600 text-white text-xl hover:scale-110 transition-transform shadow-lg">
             <i class="fa-brands fa-weixin"></i>
-        </a>
+        </button>
+
+        <!-- IMO — логотип локально + QR код -->
+            <button @click="imoModal = true" title="IMO"
+            class="w-12 h-12 flex items-center justify-center rounded-full bg-white text-white text-xl hover:scale-110 transition-transform shadow-lg">
+                <img src="{% static 'images/logos/imo_logo.png' %}" 
+                    alt="IMO" class="w-6 h-6 object-contain">
+            </button>
 
         <!-- Email -->
         <a href="mailto:guzelka9494@gmail.com" title="Email"
-           class="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#D4AF37] text-[#0B3D2E] text-lg md:text-xl shadow-lg hover:scale-110 transition-transform duration-200">
+           class="w-12 h-12 flex items-center justify-center rounded-full bg-yellow-500 text-malachite text-xl hover:scale-110 transition-transform shadow-lg">
             <i class="fa-solid fa-envelope"></i>
         </a>
 
     </div>
 
+    <!-- 📱 МОДАЛЬНОЕ ОКНО WeChat QR CODE -->
+    <div x-show="wechatModal" 
+         @click.outside="wechatModal = false"
+         class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+         style="display: none;">
+        
+        <div class="bg-white rounded-2xl p-8 shadow-2xl max-w-sm w-full animate-in fade-in zoom-in-95 duration-300">
+            
+            <!-- Заголовок -->
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold text-malachite flex items-center gap-2">
+                    <i class="fa-brands fa-weixin text-green-600"></i>
+                    WeChat
+                </h3>
+                <button @click="wechatModal = false" class="text-ink/50 hover:text-ink text-2xl">
+                    ✕
+                </button>
+            </div>
+
+            <!-- QR код -->
+            <div class="bg-cream rounded-xl p-6 mb-6 text-center">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://web.wechat.com" 
+                     alt="WeChat QR Code" class="w-full h-auto rounded-lg">
+            </div>
+
+            <!-- Инструкция -->
+            <div class="space-y-3 mb-6">
+                <p class="text-ink/70 text-sm">
+                    <strong>Как добавить нас в WeChat:</strong>
+                </p>
+                <ol class="text-ink/60 text-sm space-y-2 list-decimal list-inside">
+                    <li>Откройте WeChat на телефоне</li>
+                    <li>Нажмите <strong>+</strong> → <strong>Scan QR Code</strong></li>
+                    <li>Отсканируйте этот код</li>
+                    <li>Пишите нам! 😊</li>
+                </ol>
+            </div>
+
+            <!-- Кнопка закрытия -->
+            <button @click="wechatModal = false"
+                    class="w-full px-6 py-3 rounded-full bg-malachite text-white font-bold hover:bg-teal transition">
+                Закрыть
+            </button>
+
+        </div>
+    </div>
+
+    <!-- 📱 МОДАЛЬНОЕ ОКНО IMO QR CODE -->
+    <div x-show="imoModal" 
+         @click.outside="imoModal = false"
+         class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+         style="display: none;">
+        
+        <div class="bg-white rounded-2xl p-8 shadow-2xl max-w-sm w-full animate-in fade-in zoom-in-95 duration-300">
+            
+            <!-- Заголовок -->
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold text-blue-400 flex items-center gap-2">
+                    <img src="{% static 'images/logos/imo_logo.png' %}" 
+                         alt="IMO" class="w-8 h-8 rounded-full">
+                    IMO
+                </h3>
+                <button @click="imoModal = false" class="text-ink/50 hover:text-ink text-2xl">
+                    ✕
+                </button>
+            </div>
+
+            <!-- QR код -->
+            <div class="bg-cream rounded-xl p-6 mb-6 text-center">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://imo.im" 
+                     alt="IMO QR Code" class="w-full h-auto rounded-lg">
+            </div>
+
+            <!-- Инструкция -->
+            <div class="space-y-3 mb-6">
+                <p class="text-ink/70 text-sm">
+                    <strong>Как добавить нас в IMO:</strong>
+                </p>
+                <ol class="text-ink/60 text-sm space-y-2 list-decimal list-inside">
+                    <li>Откройте IMO на телефоне</li>
+                    <li>Нажмите иконку <strong>сканирования</strong></li>
+                    <li>Отсканируйте этот код</li>
+                    <li>Начните чат с нами! 👋</li>
+                </ol>
+            </div>
+
+            <!-- Кнопка закрытия -->
+            <button @click="imoModal = false"
+                    class="w-full px-6 py-3 rounded-full bg-malachite text-white font-bold hover:bg-teal transition">
+                Закрыть
+            </button>
+
+        </div>
+    </div>
+
     <!-- Кнопка-переключатель (ТОЛЬКО на мобилке/планшете) -->
-    <!-- Кнопка-переключатель с подсказкой -->
     <div class="md:hidden flex items-center gap-2" x-data="{ hint: true }" 
         x-init="setTimeout(() => hint = false, 4000)">
 
@@ -55,12 +152,5 @@
             <span x-show="!open">&#128172;</span>
         </button>
     </div>
-
-    {# 🚫 Плашка «Ответим в течение 1 часа» — УБРАНА по правкам #}
-    {% comment %}
-    <div class="hidden md:block bg-[#0B3D2E] text-white text-xs px-3 py-1.5 rounded-full shadow-lg">
-        Ответим в течение 1 часа ⭐
-    </div>
-    {% endcomment %}
 
 </div>
