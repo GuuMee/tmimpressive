@@ -1451,6 +1451,9 @@
   .min-h-\[85vh\] {
     min-height: 85vh;
   }
+  .min-h-\[95vh\] {
+    min-height: 95vh;
+  }
   .min-h-\[400px\] {
     min-height: 400px;
   }
