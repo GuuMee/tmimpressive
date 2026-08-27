@@ -2,24 +2,24 @@
 {% load static %}
 
 {% block content %}
-<section class="relative flex flex-col items-start justify-center min-h-[95vh] py-24 px-6 md:px-16">
-    <!-- Баннер -->
-    <img src="{% static 'images/home_hero_2K-1.jpg' %}" alt="TM IMPRESSIVE Banner" 
-        class="absolute inset-0 object-cover w-full h-full opacity-95 pointer-events-none" />
-    <!-- Контент поверх баннера -->
-    <div class="relative z-10 max-w-2xl mt-8 ml-0 md:ml-20 animate-fade-in-up">
-        <span class="text-lg text-teal tracking-widest uppercase font-bold mb-3 block">Откройте мир с</span>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-malachite mb-6">TM IMPRESSIVE</h1>
-        
-        <p class="text-2xl md:text-3xl text-teal font-semibold mb-6">Connecting opportunities,<br> elevating futures</p>
-        <p class="mb-8 text-ink leading-relaxed">
-            
-            Туризм, MICE, бизнес-консалтинг и лингвистика — ваш надёжный партнёр в Туркменистане и за его пределами.
+<section class="relative flex flex-col items-left md:items-start justify-center min-h-[95vh] py-16 px-6 md:px-16 bg-cream overflow-hidden">
+    <!-- Баннер: на десктопе cover, но фокус смещён; фон cream закрывает края -->
+    <img src="{% static 'images/banners/home_hero_dark.jpg' %}" alt="TM IMPRESSIVE"
+         class="absolute inset-0 w-full h-full object-cover object-right pointer-events-none" />
+
+    <!-- Контент поверх (слева, там пустое место на баннере) -->
+    <div class="relative z-10 max-w-3xl mt-8 md:ml-20 animate-fade-in-up
+                bg-cream/60 md:bg-transparent rounded-2xl p-6 md:p-0 backdrop-blur-sm md:backdrop-blur-none">
+        <span class="text-lg text-white tracking-widest uppercase font-bold mb-3 block">Откройте мир с</span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6">TM IMPRESSIVE</h1>
+        <p class="text-2xl md:text-3xl text-white font-semibold mb-6">Connecting opportunities,<br> elevating futures</p>
+        <p class="mb-8 text-white leading-relaxed">
+            Туризм, MICE, бизнес-консалтинг и лингвистика — ваш надёжный </br>партнёр в Туркменистане и за его пределами.
         </p>
-        <a href="{% url 'contacts:index' %}" class="inline-block bg-brass hover:bg-teal text-white text-lg font-bold px-8 py-3 rounded-full shadow-lg transition">Оставить заявку</a>
+        <a href="{% url 'contacts:index' %}" class="inline-block bg-brass hover:bg-teal text-forest-dark text-lg font-bold px-8 py-3 rounded-full shadow-lg transition">Оставить заявку</a>
     </div>
-    
 </section>
+
 <!-- ===== 3 НАПРАВЛЕНИЯ ===== -->
 <section class="py-20 px-6 md:px-16 bg-cream">
     <div class="max-w-7xl mx-auto">

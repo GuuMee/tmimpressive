@@ -6,37 +6,34 @@
 {% block content %}
 
 <!-- ================= HERO ================= -->
-<section class="relative bg-malachite text-white">
-    <div class="absolute inset-0 bg-black/40"></div>
-    <div class="relative max-w-6xl mx-auto px-4 py-24 md:py-32 text-center">
-        <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
-            <i class="fa-solid fa-language mr-2"></i>Лингвистические услуги
-        </span>
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Переводы без<br>языковых барьеров
-        </h1>
-        <p class="max-w-2xl mx-auto text-lg md:text-xl text-cream/90 mb-6">
-            Профессиональные переводы на английский, китайский, туркменский и русский языки
-        </p>
-
-        <!-- Флажки языков -->
-        <div class="flex items-center justify-center gap-4 mb-8">
-            <img src="https://flagcdn.com/w80/ru.png" alt="Русский"
-                 class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
-            <img src="https://flagcdn.com/w80/gb.png" alt="Английский"
-                 class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
-            <img src="https://flagcdn.com/w80/tm.png" alt="Туркменский"
-                 class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
-            <img src="https://flagcdn.com/w80/cn.png" alt="Китайский"
-                 class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+<section class="relative  bg-malachite text-white overflow-hidden">
+    <img src="{% static 'images/banners/linguistics_hero.jpg' %}" alt=""
+         class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
+    <div class="relative max-w-8xl mx-auto px-10 py-24 ml-2 md:py-32">
+        <div class="max-w-4xl ">
+            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+                <i class="fa-solid fa-language mr-2"></i>Лингвистические услуги
+            </span>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Переводы без<br>языковых барьеров
+            </h1>
+            <p class="text-lg md:text-xl text-cream/90 mb-6">
+                Профессиональные переводы на английский, китайский, туркменский и русский языки
+            </p>
+            <div class="flex items-center gap-4 mb-8">
+                <img src="https://flagcdn.com/w80/ru.png" alt="Русский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+                <img src="https://flagcdn.com/w80/gb.png" alt="Английский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+                <img src="https://flagcdn.com/w80/tm.png" alt="Туркменский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+                <img src="https://flagcdn.com/w80/cn.png" alt="Китайский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+            </div>
+            <a href="{% url 'contacts:index' %}"
+               class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
+                Заказать перевод
+            </a>
         </div>
-
-        <a href="{% url 'contacts:index' %}"
-           class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
-            Заказать перевод
-        </a>
     </div>
 </section>
+
 
 <!-- ================= БЛОК 1: УСЛУГИ ПЕРЕВОДОВ ================= -->
 <section class="py-16 md:py-24 bg-cream">
@@ -422,29 +419,29 @@
                 <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all border border-cream hover:border-teal">
                     <div class="text-3xl mb-3 text-teal">🎤</div>
                     <h4 class="font-bold text-malachite mb-2">Микрофоны</h4>
-                    <p class="text-sm text-ink/60">Настольные и петличные</p>
-                    <p class="text-xs text-teal font-semibold mt-3">от $30</p>
+                    <!--<p class="text-sm text-ink/60">Настольные и петличные</p>
+                    <p class="text-xs text-teal font-semibold mt-3">от $30</p> -->
                 </div>
 
                 <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all border border-cream hover:border-teal">
                     <div class="text-3xl mb-3 text-teal">🔊</div>
                     <h4 class="font-bold text-malachite mb-2">Акустические системы</h4>
-                    <p class="text-sm text-ink/60">Колонки и усилители</p>
-                    <p class="text-xs text-teal font-semibold mt-3">от $80</p>
+                    <!--<p class="text-sm text-ink/60">Колонки и усилители</p>
+                    <p class="text-xs text-teal font-semibold mt-3">от $80</p> -->
                 </div>
 
                 <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all border border-cream hover:border-teal">
                     <div class="text-3xl mb-3 text-teal">📺</div>
                     <h4 class="font-bold text-malachite mb-2">Экраны и проекторы</h4>
-                    <p class="text-sm text-ink/60">Для вывода субтитров</p>
-                    <p class="text-xs text-teal font-semibold mt-3">от $120</p>
+                    <!--<p class="text-sm text-ink/60">Для вывода субтитров</p>
+                    <p class="text-xs text-teal font-semibold mt-3">от $120</p> -->
                 </div>
 
                 <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all border border-cream hover:border-teal">
                     <div class="text-3xl mb-3 text-teal">🔌</div>
                     <h4 class="font-bold text-malachite mb-2">Смешивающее оборудование</h4>
-                    <p class="text-sm text-ink/60">Микшеры и трансляция</p>
-                    <p class="text-xs text-teal font-semibold mt-3">от $100</p>
+                    <!--<p class="text-sm text-ink/60">Микшеры и трансляция</p>
+                    <p class="text-xs text-teal font-semibold mt-3">от $100</p> -->
                 </div>
 
             </div>
