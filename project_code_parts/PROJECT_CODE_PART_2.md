@@ -1,7 +1,7 @@
 # 📦 Код проекта TM IMPRESSIVE
 
-> Собрано: 27.08.2026 00:13
-> Всего файлов: 105
+> Собрано: 29.08.2026 14:00
+> Всего файлов: 106
 > Размер каждой части: ~99 КБ
 
 ## 🌳 Структура проекта
@@ -113,6 +113,7 @@ tmimpressive/
                 ├── footer.html
                 ├── header.html
                 ├── messenger_panel.html
+                ├── desktop.ini
 ```
 
 ---
@@ -283,19 +284,24 @@ tmimpressive/
 {% block content %}
 
 <!-- ================= HERO ================= -->
-<section class="bg-malachite text-white py-16 md:py-24">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-        <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold">
-            🏆 ПОРТФОЛИО
-        </span>
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-            Реализованные проекты
-        </h1>
-        <p class="text-lg md:text-xl text-cream/90 max-w-3xl mx-auto">
-            Вот что нам удалось создать для наших клиентов — от туров до консалтинга
-        </p>
+<section class="relative bg-malachite text-white overflow-hidden py-16 md:py-24">
+    <img src="{% static 'images/banners/cases_hero.jpg' %}" alt=""
+         class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
+    <div class="relative max-w-8xl mx-auto px-10">
+        <div class="max-w-4xl">
+            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold">
+                🏆 ПОРТФОЛИО
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
+                Реализованные проекты
+            </h1>
+            <p class="text-lg md:text-xl text-cream/90">
+                Вот что нам удалось создать для наших клиентов — от туров до консалтинга
+            </p>
+        </div>
     </div>
 </section>
+
 
 <!-- ================= ФИЛЬТР ================= -->
 <section class="bg-white border-b border-cream sticky top-0 z-20">
@@ -414,24 +420,28 @@ tmimpressive/
 {% block content %}
 
 <!-- ================= HERO ================= -->
-<section class="relative bg-malachite text-white">
-    <div class="absolute inset-0 bg-black/40"></div>
-    <div class="relative max-w-6xl mx-auto px-4 py-24 md:py-32 text-center">
-        <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
-            <i class="fa-solid fa-briefcase mr-2"></i>Бизнес-консалтинг
-        </span>
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Ваш бизнес-партнёр<br>в Туркменистане
-        </h1>
-        <p class="max-w-2xl mx-auto text-lg md:text-xl text-cream/90 mb-8">
-            Помогаем выйти на рынок, найти партнёров и вести дела уверенно.
-        </p>
-        <a href="{% url 'contacts:index' %}"
-           class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
-            Обсудить проект
-        </a>
+<section class="relative bg-malachite text-white overflow-hidden">
+    <img src="{% static 'images/banners/business_hero.jpg' %}" alt=""
+         class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
+    <div class="relative max-w-8xl ml-2 mx-auto px-10 py-24 md:py-32">
+        <div class="max-w-4xl">
+            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+                <i class="fa-solid fa-briefcase mr-2"></i>Бизнес-консалтинг
+            </span>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Ваш бизнес-партнёр<br>в Туркменистане
+            </h1>
+            <p class="text-lg md:text-xl text-cream/90 mb-8">
+                Помогаем выйти на рынок, найти партнёров и вести дела уверенно.
+            </p>
+            <a href="{% url 'contacts:index' %}"
+               class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
+                Обсудить проект
+            </a>
+        </div>
     </div>
 </section>
+
 
 <!-- ================= УСЛУГИ ================= -->
 <section class="py-16 md:py-24 bg-cream">
@@ -634,21 +644,27 @@ tmimpressive/
 
 {% block content %}
 
+
 <!-- ================= HERO ================= -->
-<section class="relative bg-malachite text-white">
-    <div class="absolute inset-0 bg-black/30"></div>
-    <div class="relative max-w-6xl mx-auto px-4 py-20 md:py-28 text-center">
-        <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
-            <i class="fa-solid fa-phone mr-2"></i>Контакты
-        </span>
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Свяжитесь с нами
-        </h1>
-        <p class="max-w-2xl mx-auto text-lg md:text-xl text-cream/90">
-            Ответим на любой вопрос в течение 1 часа ⏱️
-        </p>
+<section class="relative  bg-malachite text-white overflow-hidden  min-h-[90vh] ">
+    <img src="{% static 'images/banners/contacts_hero.jpg' %}" alt=""
+         class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
+    <div class="relative max-w-8xl mx-auto px-10 py-24 ml-2 md:py-32">
+        <div class="max-w-4xl ">
+            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+               <i class="fa-solid fa-phone mr-2"></i>Контакты
+            </span>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Свяжитесь с нами
+            </h1>
+            <p class="text-lg md:text-xl text-cream/90 mb-6">
+                Ответим на любой вопрос в ближайшее время
+            </p>
+           
+        </div>
     </div>
 </section>
+
 
 <!-- ================= МЕССЕНДЖЕРЫ ================= -->
 <section class="py-16 md:py-20 bg-white">
@@ -925,37 +941,34 @@ function copyContact(number, el) {
 {% block content %}
 
 <!-- ================= HERO ================= -->
-<section class="relative bg-malachite text-white">
-    <div class="absolute inset-0 bg-black/40"></div>
-    <div class="relative max-w-6xl mx-auto px-4 py-24 md:py-32 text-center">
-        <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
-            <i class="fa-solid fa-language mr-2"></i>Лингвистические услуги
-        </span>
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Переводы без<br>языковых барьеров
-        </h1>
-        <p class="max-w-2xl mx-auto text-lg md:text-xl text-cream/90 mb-6">
-            Профессиональные переводы на английский, китайский, туркменский и русский языки
-        </p>
-
-        <!-- Флажки языков -->
-        <div class="flex items-center justify-center gap-4 mb-8">
-            <img src="https://flagcdn.com/w80/ru.png" alt="Русский"
-                 class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
-            <img src="https://flagcdn.com/w80/gb.png" alt="Английский"
-                 class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
-            <img src="https://flagcdn.com/w80/tm.png" alt="Туркменский"
-                 class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
-            <img src="https://flagcdn.com/w80/cn.png" alt="Китайский"
-                 class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+<section class="relative  bg-malachite text-white overflow-hidden">
+    <img src="{% static 'images/banners/linguistics_hero.jpg' %}" alt=""
+         class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
+    <div class="relative max-w-8xl mx-auto px-10 py-24 ml-2 md:py-32">
+        <div class="max-w-4xl ">
+            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+                <i class="fa-solid fa-language mr-2"></i>Лингвистические услуги
+            </span>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Переводы без<br>языковых барьеров
+            </h1>
+            <p class="text-lg md:text-xl text-cream/90 mb-6">
+                Профессиональные переводы на английский, китайский, туркменский и русский языки
+            </p>
+            <div class="flex items-center gap-4 mb-8">
+                <img src="https://flagcdn.com/w80/ru.png" alt="Русский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+                <img src="https://flagcdn.com/w80/gb.png" alt="Английский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+                <img src="https://flagcdn.com/w80/tm.png" alt="Туркменский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+                <img src="https://flagcdn.com/w80/cn.png" alt="Китайский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+            </div>
+            <a href="{% url 'contacts:index' %}"
+               class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
+                Заказать перевод
+            </a>
         </div>
-
-        <a href="{% url 'contacts:index' %}"
-           class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
-            Заказать перевод
-        </a>
     </div>
 </section>
+
 
 <!-- ================= БЛОК 1: УСЛУГИ ПЕРЕВОДОВ ================= -->
 <section class="py-16 md:py-24 bg-cream">
@@ -1495,24 +1508,24 @@ function copyContact(number, el) {
 {% load static %}
 
 {% block content %}
-<section class="relative flex flex-col items-start justify-center min-h-[95vh] py-24 px-6 md:px-16">
-    <!-- Баннер -->
-    <img src="{% static 'images/home_hero_2K-1.jpg' %}" alt="TM IMPRESSIVE Banner" 
-        class="absolute inset-0 object-cover w-full h-full opacity-95 pointer-events-none" />
-    <!-- Контент поверх баннера -->
-    <div class="relative z-10 max-w-2xl mt-8 ml-0 md:ml-20 animate-fade-in-up">
-        <span class="text-lg text-teal tracking-widest uppercase font-bold mb-3 block">Откройте мир с</span>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-malachite mb-6">TM IMPRESSIVE</h1>
-        
-        <p class="text-2xl md:text-3xl text-teal font-semibold mb-6">Connecting opportunities,<br> elevating futures</p>
-        <p class="mb-8 text-ink leading-relaxed">
-            
-            Туризм, MICE, бизнес-консалтинг и лингвистика — ваш надёжный партнёр в Туркменистане и за его пределами.
+<section class="relative flex flex-col items-left md:items-start justify-center min-h-[95vh] py-16 px-6 md:px-16 bg-cream overflow-hidden">
+    <!-- Баннер: на десктопе cover, но фокус смещён; фон cream закрывает края -->
+    <img src="{% static 'images/banners/home_hero_dark.jpg' %}" alt="TM IMPRESSIVE"
+         class="absolute inset-0 w-full h-full object-cover object-right pointer-events-none" />
+
+    <!-- Контент поверх (слева, там пустое место на баннере) -->
+    <div class="relative z-10 max-w-3xl mt-8 md:ml-20 animate-fade-in-up
+                bg-cream/60 md:bg-transparent rounded-2xl p-6 md:p-0 backdrop-blur-sm md:backdrop-blur-none">
+        <span class="text-lg text-white tracking-widest uppercase font-bold mb-3 block">Откройте мир с</span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6">TM IMPRESSIVE</h1>
+        <p class="text-2xl md:text-3xl text-white font-semibold mb-6">Connecting opportunities,<br> elevating futures</p>
+        <p class="mb-8 text-white leading-relaxed">
+            Туризм, MICE, бизнес-консалтинг и лингвистика — ваш надёжный </br>партнёр в Туркменистане и за его пределами.
         </p>
-        <a href="{% url 'contacts:index' %}" class="inline-block bg-brass hover:bg-teal text-white text-lg font-bold px-8 py-3 rounded-full shadow-lg transition">Оставить заявку</a>
+        <a href="{% url 'contacts:index' %}" class="inline-block bg-brass hover:bg-teal text-forest-dark text-lg font-bold px-8 py-3 rounded-full shadow-lg transition">Оставить заявку</a>
     </div>
-    
 </section>
+
 <!-- ===== 3 НАПРАВЛЕНИЯ ===== -->
 <section class="py-20 px-6 md:px-16 bg-cream">
     <div class="max-w-7xl mx-auto">

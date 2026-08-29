@@ -1,7 +1,7 @@
 # 📦 Код проекта TM IMPRESSIVE
 
-> Собрано: 27.08.2026 00:13
-> Всего файлов: 105
+> Собрано: 29.08.2026 14:00
+> Всего файлов: 106
 > Размер каждой части: ~99 КБ
 
 ## 🌳 Структура проекта
@@ -113,6 +113,7 @@ tmimpressive/
                 ├── footer.html
                 ├── header.html
                 ├── messenger_panel.html
+                ├── desktop.ini
 ```
 
 ---
@@ -2660,19 +2661,26 @@ def filter_url(context, **kwargs):
 
 {% block content %}
 
+
 <!-- ================= HERO ================= -->
-<section class="relative bg-malachite text-white">
-    <div class="absolute inset-0 bg-black/40"></div>
-    <div class="relative max-w-6xl mx-auto px-4 py-24 md:py-32 text-center">
-        <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
-            <i class="fa-solid fa-building mr-2"></i>О компании
-        </span>
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            TM IMPRESSIVE
-        </h1>
-        <p class="max-w-2xl mx-auto text-lg md:text-xl text-cream/90">
-            Connecting opportunities, elevating futures
-        </p>
+<section class="relative  bg-malachite text-malachite overflow-hidden">
+    <img src="{% static 'images/banners/about_hero.jpg' %}" alt="О компании TM IMPRESSIVE"
+         class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
+    <div class="relative max-w-8xl mx-auto px-10 py-24 ml-3 md:py-32">
+        <div class="max-w-4xl ">
+        
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                О компании<br>TM IMPRESSIVE
+            </h1>
+            <p class="text-lg md:text-xl text-malachite mb-6">
+                Туризм, бизнес-консалтинг и лингвистика — три направления, объединённые одной целью: связывать возможности.
+                </p>
+            
+            <a href="{% url 'contacts:index' %}"
+               class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
+                Связаться с нами
+            </a>
+        </div>
     </div>
 </section>
 

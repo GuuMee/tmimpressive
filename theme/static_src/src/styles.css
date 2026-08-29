@@ -39,6 +39,8 @@
      /* 🌑 Тёмный зелёный для футера — премиум элегантный */
     --color-forest-dark: #0a4a37;  
 
+   
+
       --animate-marquee: marquee 30s linear infinite;
 }
 
@@ -60,3 +62,13 @@
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+/* Золотой градиент для текста */
+  .text-gold-gradient {
+      background: linear-gradient(135deg, #c8952a 0%, #DDB74E 40%, #f0d080 65%, #DDB74E 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block; /* ВАЖНО! */
+      font-weight: 700;
+  }

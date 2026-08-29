@@ -1,7 +1,7 @@
 # 📦 Код проекта TM IMPRESSIVE
 
-> Собрано: 27.08.2026 00:13
-> Всего файлов: 105
+> Собрано: 29.08.2026 14:00
+> Всего файлов: 106
 > Размер каждой части: ~99 КБ
 
 ## 🌳 Структура проекта
@@ -113,6 +113,7 @@ tmimpressive/
                 ├── footer.html
                 ├── header.html
                 ├── messenger_panel.html
+                ├── desktop.ini
 ```
 
 ---
@@ -740,21 +741,28 @@ tmimpressive/
 {% block content %}
 
 <!-- ================= HERO ================= -->
-<section class="relative bg-malachite text-white">
-    <div class="absolute inset-0 bg-black/40"></div>
-    <div class="relative max-w-6xl mx-auto px-4 py-20 md:py-28 text-center">
-        <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
-            ⭐ Каталог туров
-        </span>
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-            Туры по Туркменистану
-        </h1>
-        <p class="max-w-2xl mx-auto text-lg md:text-xl text-cream/90">
-            Выберите направление мечты — от древних городов до пустынных приключений
-        </p>
+<section class="relative  bg-malachite text-white overflow-hidden">
+    <img src="{% static 'images/banners/tourism_hero.jpg' %}" alt=""
+         class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
+    <div class="relative max-w-8xl mx-auto px-10 py-24 ml-2 md:py-32">
+        <div class="max-w-4xl ">
+            <span class="inline-block px-10 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+                 <i class="fa-solid fa-mountain-sun mr-2"></i>Туризм и MICE
+            </span>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Откройте<br>Туркменистан
+            </h1>
+            <p class="text-lg md:text-xl text-cream/90 mb-6">
+                 Пустыня Каракумы, горы Копетдаг, Каспийское море </br>и древний Шёлковый путь — в одном путешествии.
+            </p>
+            <
+            <a href="{% url 'contacts:index' %}"
+               class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
+                Подобрать тур
+            </a>
+        </div>
     </div>
 </section>
-
 <!-- ================= КАТАЛОГ С САЙДБАРОМ ================= -->
 <section id="catalog" class="py-12 bg-cream min-h-screen">
     <div class="max-w-7xl mx-auto px-4">
@@ -1610,5 +1618,25 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
 
 </div>
+```
+
+### 📄 `static\images\logos\Videos\desktop.ini`
+
+```text
+��
+ 
+ [ . S h e l l C l a s s I n f o ] 
+ 
+ L o c a l i z e d R e s o u r c e N a m e = @ % S y s t e m R o o t % \ s y s t e m 3 2 \ s h e l l 3 2 . d l l , - 2 1 7 9 1 
+ 
+ I n f o T i p = @ % S y s t e m R o o t % \ s y s t e m 3 2 \ s h e l l 3 2 . d l l , - 1 2 6 9 0 
+ 
+ I c o n R e s o u r c e = % S y s t e m R o o t % \ s y s t e m 3 2 \ i m a g e r e s . d l l , - 1 8 9 
+ 
+ I c o n F i l e = % S y s t e m R o o t % \ s y s t e m 3 2 \ s h e l l 3 2 . d l l 
+ 
+ I c o n I n d e x = - 2 3 8 
+ 
+ 
 ```
 
