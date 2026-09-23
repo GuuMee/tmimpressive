@@ -1,37 +1,131 @@
-# 📁 cases/admin.py
-
+"""
+================================================================
+TM IMPRESSIVE — Cases & Partners Admin
+Кейсы и партнёры компании
+================================================================
+"""
 from django.contrib import admin
-
+from django.utils.html import format_html
 from .models import Case, Partner
 
 
+# ============================================================
+# КЕЙСЫ (ПОРТФОЛИО)
+# ============================================================
+
 @admin.register(Case)
 class CaseAdmin(admin.ModelAdmin):
-    list_display = ('title', 'client', 'get_direction_display', 'is_featured', 'is_active', 'order')
-    list_editable = ('is_featured', 'is_active', 'order')
-    list_filter = ('direction', 'is_active', 'is_featured', 'created_at')
-    search_fields = ('title', 'client', 'short_description')
+    list_display = (
+        'title',
+        'direction_badge',
+        'client',
+        'is_featured',
+        'is_active',
+        'order',
+        'created_at',
+    )
+    list_filter = ('direction', 'is_featured', 'is_active')
+    search_fields = ('title', 'client', 'short_description', 'full_description')
     prepopulated_fields = {'slug': ('title',)}
-    readonly_fields = ('created_at',)  # ← только created_at
+    
+    list_editable = ('is_featured', 'is_active', 'order')
+    list_per_page = 20
+    date_hierarchy = 'created_at'
     
     fieldsets = (
-        ('📝 Основное', {
-            'fields': ('title', 'slug', 'client', 'direction')
+        ('📝 Основная информация', {
+            'fields': (
+                'title',
+                'slug',
+                'direction',
+                'client',
+            )
         }),
-        ('📄 Контент', {
-            'fields': ('short_description', 'full_description', 'image', 'result')
+        ('📄 Описание', {
+            'fields': (
+                'short_description',
+                'full_description',
+                'result',
+            )
         }),
-        ('⚙️ Отображение', {
-            'fields': ('is_featured', 'is_active', 'order')
+        ('🖼️ Изображение', {
+            'fields': ('image',)
         }),
-        ('📅 Дата создания', {
-            'fields': ('created_at',),  # ← только created_at
-            'classes': ('collapse',)
+        ('⚙️ Настройки', {
+            'fields': (
+                'is_featured',
+                'is_active',
+                'order',
+            )
         }),
     )
+    
+    def direction_badge(self, obj):
+        colors = {
+            'tourism': '#0f6b52',       # malachite
+            'consulting': '#3b82f6',    # blue
+            'linguistics': '#DDB74E',   # brass
+        }
+        color = colors.get(obj.direction, '#6b7280')
+        return format_html(
+            '<span style="background: ; color: white; padding: 4px 12px; '
+            'border-radius: 12px; font-weight: 600; font-size: 11px;">{}</span>',
+            color,
+            obj.get_direction_display()
+        )
+    direction_badge.short_description = 'Направление'
+
+
+# ============================================================
+# ПАРТНЁРЫ
+# ============================================================
 
 @admin.register(Partner)
 class PartnerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'is_active', 'order')
+    list_display = (
+        'name',
+        'logo_preview',
+        'url_link',
+        'is_active',
+        'order',
+    )
+    list_filter = ('is_active',)
+    search_fields = ('name', 'url')
+    
     list_editable = ('is_active', 'order')
-    fields = ('name', 'logo', 'url', 'is_active', 'order')
+    list_per_page = 30
+    
+    fieldsets = (
+        ('📝 Информация о партнёре', {
+            'fields': (
+                'name',
+                'logo',
+                'url',
+            )
+        }),
+        ('⚙️ Настройки', {
+            'fields': (
+                'order',
+                'is_active',
+            )
+        }),
+    )
+    
+    def logo_preview(self, obj):
+        if obj.logo:
+            return format_html(
+                '<img src="{}" style="max-height: 50px; max-width: 120px; '
+                'object-fit: contain; border-radius: 4px;" />',
+                obj.logo.url
+            )
+        return '—'
+    logo_preview.short_description = 'Логотип'
+    
+    def url_link(self, obj):
+        if obj.url:
+            return format_html(
+                '<a href="{}" target="_blank" style="color: #0f6b52;">🔗 Открыть</a>',
+                obj.url
+            )
+        return '—'
+    url_link.short_description = 'Ссылка'

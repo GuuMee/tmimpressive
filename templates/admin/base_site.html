@@ -1,0 +1,29 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | TM IMPRESSIVE{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/admin_theme.css' %}">
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}" style="color: #DDB74E; text-decoration: none;">
+        <span style="font-weight: 700; font-size: 1.3rem;">TM IMPRESSIVE</span>
+        <span style="font-size: 0.85rem; margin-left: 1rem; color: rgba(255,255,255,0.7);">Управление</span>
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}
+<div style="color: rgba(255,255,255,0.85); font-size: 0.9rem;">
+    {% if user.is_active and user.is_staff %}
+        👤 {{ user.get_username }} |
+        <a href="{% url 'admin:password_change' %}" style="color: white; text-decoration: none; margin: 0 1rem;">🔐 Пароль</a>
+        <a href="/" target="_blank" style="color: #DDB74E; text-decoration: none; margin: 0 1rem;">🌐 На сайт</a>
+        <a href="{% url 'admin:logout' %}" style="color: white; text-decoration: none; margin-left: 1rem;">Выход</a>
+    {% endif %}
+</div>
+{% endblock %}

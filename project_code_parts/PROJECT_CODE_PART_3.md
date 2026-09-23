@@ -746,7 +746,7 @@ tmimpressive/
          class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
     <div class="relative max-w-8xl mx-auto px-10 py-24 ml-2 md:py-32">
         <div class="max-w-4xl ">
-            <span class="inline-block px-10 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+            <span class="inline-block px-10 py-1 mb-4 rounded-full bg-malachite/20 text-malachite text-sm font-semibold tracking-wide">
                  <i class="fa-solid fa-mountain-sun mr-2"></i>Туризм и MICE
             </span>
             <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">

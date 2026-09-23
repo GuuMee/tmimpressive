@@ -6,18 +6,18 @@
 {% block content %}
 
 <!-- ================= HERO ================= -->
-<section class="relative  bg-malachite text-white overflow-hidden">
+<section class="relative  bg-malachite text-malachite overflow-hidden">
     <img src="{% static 'images/banners/linguistics_hero.jpg' %}" alt=""
          class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
     <div class="relative max-w-8xl mx-auto px-10 py-24 ml-2 md:py-32">
         <div class="max-w-4xl ">
-            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-malachite/20 text-malachite text-sm font-semibold tracking-wide">
                 <i class="fa-solid fa-language mr-2"></i>Лингвистические услуги
             </span>
             <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                 Переводы без<br>языковых барьеров
             </h1>
-            <p class="text-lg md:text-xl text-cream/90 mb-6">
+            <p class="text-lg md:text-xl text-malachite/90 mb-6">
                 Профессиональные переводы 
             </p>
             <div class="flex items-center gap-4 mb-8">
@@ -26,10 +26,7 @@
                 <img src="https://flagcdn.com/w80/tm.png" alt="Туркменский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
                 <img src="https://flagcdn.com/w80/cn.png" alt="Китайский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
             </div>
-            <a href="{% url 'contacts:index' %}"
-               class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
-                Заказать перевод
-            </a>
+            
         </div>
     </div>
 </section>
@@ -338,13 +335,11 @@
         
         <!-- Заголовок -->
         <div class="text-center mb-14">
-            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-teal/20 text-teal text-sm font-semibold">
-                <i class="fa-solid fa-microphone mr-2"></i>ТЕХНИЧЕСКАЯ ПОДДЕРЖКА
-            </span>
+            
             <h2 class="text-4xl md:text-5xl lg:text-5xl font-extrabold text-malachite mb-6">
-                Аренда оборудования для переводов
+                Аренда оборудования синхронного перевода
             </h2>
-            <p class="max-w-3xl mx-auto text-lg text-ink/70">
+            <p class="max-w-4xl mx-auto text-3xl">
                 Полный спектр современного оборудования для конференций, форумов и международных мероприятий
             </p>
             <div class="w-24 h-1 bg-teal mx-auto mt-6 rounded-full"></div>
@@ -357,14 +352,12 @@
             <div class="bg-gradient-to-br from-cream to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border-l-4 border-teal">
                 <!-- КАРТИНКА -->
                 <div class="mb-6 h-48 bg-malachite/5 rounded-xl flex items-center justify-center overflow-hidden">
-                    <img src="{% static 'images/equipment/booth.jpg' %}" 
+                    <img src="{% static 'images/content/cabins.jpg' %}" 
                         alt="Кабина синхронного перевода"
                         class="w-full h-full object-cover">
                 </div>
                 <div class="flex items-start gap-4 mb-6">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-teal text-white text-2xl shrink-0">
-                        <i class="fa-solid fa-microphone"></i>
-                    </div>
+                    
                     <div>
                         <h3 class="text-2xl font-bold text-malachite mb-2">Кабины синхронного перевода</h3>
                         
@@ -372,6 +365,7 @@
                 </div>
                 <ul class="space-y-2 text-ink/70 mb-6">
                     <li class="flex items-center gap-2">
+                        
                         <i class="fa-solid fa-check text-teal"></i>
                         Высокая звукоизоляция
                     </li>
@@ -386,14 +380,12 @@
             <div class="bg-gradient-to-br from-cream to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border-l-4 border-brass">
                 <!-- КАРТИНКА -->
                 <div class="mb-6 h-48 bg-brass/5 rounded-xl flex items-center justify-center overflow-hidden">
-                    <img src="{% static 'images/equipment/headphones.jpg' %}" 
+                    <img src="{% static 'images/content/headphones.jpg' %}" 
                         alt="Система передачи звука"
                         class="w-full h-full object-cover">
                 </div>
                 <div class="flex items-start gap-4 mb-6">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-brass text-malachite text-2xl shrink-0">
-                        <i class="fa-solid fa-headphones"></i>
-                    </div>
+                    
                     <div>
                        <h3 class="text-2xl font-bold text-malachite mb-2">Проводная и беспроводная система передачи звука</h3>
                     </div>
@@ -406,100 +398,10 @@
 
         </div>
 
-        <!-- Доп. оборудование -->
-        <div class="mb-14">
-            <h3 class="text-2xl font-bold text-malachite mb-6">Дополнительное оборудование</h3>
-            <!-- СТАЛО: иконки Material -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite/10 text-malachite text-3xl">
-                        <i class="fa-solid fa-microphone"></i>
-                    </div>
-                    <p class="font-semibold text-malachite text-center">Микрофоны</p>
-                </div>
-
-                <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite/10 text-malachite text-3xl">
-                        <i class="fa-solid fa-volume-high"></i>
-                    </div>
-                    <p class="font-semibold text-malachite text-center">Акустические системы</p>
-                </div>
-
-                <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite/10 text-malachite text-3xl">
-                        <i class="fa-solid fa-display"></i>
-                    </div>
-                    <p class="font-semibold text-malachite text-center">Экраны и проекторы</p>
-                </div>
-
-                <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite/10 text-malachite text-3xl">
-                        <i class="fa-solid fa-sliders"></i>
-                    </div>
-                    <p class="font-semibold text-malachite text-center">Смешивающее оборудование</p>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Преимущества аренды -->
-        <div class="bg-gradient-to-r from-teal/10 to-brass/10 rounded-2xl p-10 border border-teal/30">
-            <h3 class="text-2xl font-bold text-malachite mb-6">Почему выбирают нашу аренду?</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <div class="flex gap-4">
-                    <div class="text-2xl shrink-0 text-teal">✓</div>
-                    <div>
-                        <h4 class="font-bold text-malachite mb-1">Современное оборудование</h4>
-                        <p class="text-sm text-ink/70">Только новая и проверенная техника</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="text-2xl shrink-0 text-teal">✓</div>
-                    <div>
-                        <h4 class="font-bold text-malachite mb-1">Техническая поддержка 24/7</h4>
-                        <p class="text-sm text-ink/70">Наш специалист присутствует на месте</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="text-2xl shrink-0 text-teal">✓</div>
-                    <div>
-                        <h4 class="font-bold text-malachite mb-1">Быстрая доставка и установка</h4>
-                        <p class="text-sm text-ink/70">Монтаж за 1–2 часа, демонтаж после</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="text-2xl shrink-0 text-teal">✓</div>
-                    <div>
-                        <h4 class="font-bold text-malachite mb-1">Гибкие сроки аренды</h4>
-                        <p class="text-sm text-ink/70">От нескольких часов до нескольких недель</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="text-2xl shrink-0 text-teal">✓</div>
-                    <div>
-                        <h4 class="font-bold text-malachite mb-1">Конкурентные цены</h4>
-                        <p class="text-sm text-ink/70">Скидки на пакеты и долгосрочную аренду</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="text-2xl shrink-0 text-teal">✓</div>
-                    <div>
-                        <h4 class="font-bold text-malachite mb-1">Страховка включена</h4>
-                        <p class="text-sm text-ink/70">Защита от повреждений и потерь</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        
 
     </div>
+    
 </section>
 
 <!-- ================= CTA ================= -->
@@ -509,17 +411,14 @@
             Организуем перевод и оборудование под ключ
         </h2>
         <p class="text-lg text-cream/90 mb-8 max-w-2xl mx-auto">
-            От маленького митинга до большой международной конференции — справимся с любым масштабом
+            От маленьких совещаний до крупных мероприятий — справимся с любым масштабом
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="{% url 'contacts:index' %}"
                class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg hover:scale-105 transition-transform">
                 Заказать услугу
             </a>
-            <a href="{% url 'contacts:index' %}"
-               class="inline-block px-8 py-4 rounded-full border-2 border-brass text-brass font-bold text-lg hover:bg-brass/10 transition">
-                Получить консультацию
-            </a>
+            
         </div>
     </div>
 </section>

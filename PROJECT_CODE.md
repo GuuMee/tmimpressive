@@ -1,7 +1,7 @@
 # 📦 Код проекта TM IMPRESSIVE
 
-> Собрано: 29.08.2026 16:45
-> Всего файлов: 109
+> Собрано: 13.09.2026 11:00
+> Всего файлов: 112
 
 ## 🌳 Структура проекта
 
@@ -12,6 +12,7 @@ tmimpressive/
 ├── collect_code_split.py
 ├── manage.py
 ├── requirements.txt
+├── seed_data.py
     ├── __init__.py
     ├── admin.py
     ├── apps.py
@@ -90,6 +91,7 @@ tmimpressive/
     ├── views.py
         ├── case_tags.py
         ├── search_extras.py
+        ├── base_site.html
         ├── .gitignore
         ├── package.json
         ├── postcss.config.js
@@ -105,6 +107,7 @@ tmimpressive/
             ├── base.html
             ├── home.html
             ├── results.html
+            ├── admin_theme.css
             ├── styles.css
             ├── _catalog.html
             ├── _filters.html
@@ -446,6 +449,377 @@ if __name__ == '__main__':
  c o o k i e c u t t e r 
  
  p y t a i l w i n d c s s 
+```
+
+### 📄 `seed_data.py`
+
+```python
+#!/usr/bin/env python
+"""
+================================================================
+TM IMPRESSIVE — Seed Script (Тестовые данные)
+Создание примеров туров, кейсов, партнёров для демонстрации
+================================================================
+
+ЗАПУСК:
+    python manage.py shell < seed_data.py
+
+ИЛИ:
+    python manage.py shell
+    >>> exec(open('seed_data.py').read())
+"""
+
+import os
+import django
+
+# Инициализация Django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tmimpressive.settings')
+django.setup()
+
+from tourism.models import Tour, TourImage, TourDay, TourPrice, TourInclude, CategoryFeature
+from cases.models import Case, Partner
+from contacts.models import ContactMessage
+
+print("🚀 Начинаем загрузку тестовых данных...\n")
+
+# ============================================================
+# 1️⃣ ТУРЫ
+# ============================================================
+
+print("📍 Создание туров...")
+
+# Тур 1: Классический Туркменистан
+tour1, created = Tour.objects.get_or_create(
+    slug='klassicheskiy-turkmenistan',
+    defaults={
+        'title': 'Классический Туркменистан',
+        'category': 'standard',
+        'tour_type': 'cultural',
+        'direction': 'Ашхабад — Дарваза — Дашогуз',
+        'duration_days': 7,
+        'season': 'Круглый год',
+        'season_spring': True,
+        'season_summer': True,
+        'season_autumn': True,
+        'season_winter': True,
+        'short_description': 'Познакомьтесь с древними городами, огненным кратером Дарваза и современным Ашхабадом',
+        'full_description': '''
+Этот маршрут — идеальное введение в Туркменистан. Вы увидите:
+
+• **Ашхабад** — белокаменную столицу с мраморными дворцами
+• **Кратер Дарваза** — пылающие «Врата Ада» посреди пустыни Каракумы
+• **Древний Мерв** — руины великого города Шёлкового пути
+• **Ниса** — столицу Парфянского царства (UNESCO)
+
+Программа включает культурные объекты, природные чудеса и национальную кухню.
+        ''',
+        'price_from': 1200,
+        'is_popular': True,
+        'is_active': True,
+        'order': 1,
+    }
+)
+if created:
+    print(f"  ✓ {tour1.title}")
+    
+    # Программа по дням
+    TourDay.objects.create(
+        tour=tour1, day_number=1,
+        title='Прибытие в Ашхабад',
+        description='Встреча в аэропорту, трансфер в отель. Обзорная экскурсия по столице: площадь Независимости, Arch of Neutrality, мечеть Туркменбаши.'
+    )
+    TourDay.objects.create(
+        tour=tour1, day_number=2,
+        title='Ниса и ковровый музей',
+        description='Древняя Ниса (UNESCO) — столица Парфянского царства. Посещение Национального музея ковров.'
+    )
+    TourDay.objects.create(
+        tour=tour1, day_number=3,
+        title='Дарваза — Врата Ада',
+        description='Переезд в пустыню Каракумы (260 км). Прибытие к кратеру Дарваза на закате. Ночёвка в юртовом лагере.'
+    )
+    
+    # Цены
+    TourPrice.objects.create(tour=tour1, category='standard', season='all', price=1200)
+    TourPrice.objects.create(tour=tour1, category='premium', season='all', price=1800)
+    
+    # Включено/не включено
+    TourInclude.objects.create(tour=tour1, text='Проживание в отелях 3-4*', is_included=True, order=1)
+    TourInclude.objects.create(tour=tour1, text='Все трансферы и транспорт', is_included=True, order=2)
+    TourInclude.objects.create(tour=tour1, text='Русскоговорящий гид', is_included=True, order=3)
+    TourInclude.objects.create(tour=tour1, text='Входные билеты', is_included=True, order=4)
+    TourInclude.objects.create(tour=tour1, text='Авиабилеты', is_included=False, order=5)
+    TourInclude.objects.create(tour=tour1, text='Личные расходы', is_included=False, order=6)
+
+# Тур 2: Шёлковый путь премиум
+tour2, created = Tour.objects.get_or_create(
+    slug='shelkovyy-put-premium',
+    defaults={
+        'title': 'Шёлковый путь — Премиум',
+        'category': 'premium',
+        'tour_type': 'historical',
+        'direction': 'Ашхабад — Мерв — Марыйский велаят',
+        'duration_days': 5,
+        'season': 'Весна, Осень',
+        'season_spring': True,
+        'season_autumn': True,
+        'short_description': 'VIP-тур по древним городам Великого Шёлкового пути с проживанием в лучших отелях',
+        'full_description': '''
+Эксклюзивный маршрут для ценителей истории и комфорта:
+
+• Проживание в отелях 5* (Yyldyz, Oguzkent)
+• Частные экскурсии с историками
+• Трансферы на комфортабельных автомобилях
+• Ужины в национальных ресторанах с живой музыкой
+• Посещение археологических объектов UNESCO
+
+Идеально для небольших групп и индивидуальных туристов.
+        ''',
+        'price_from': 2500,
+        'is_popular': True,
+        'is_active': True,
+        'order': 2,
+    }
+)
+if created:
+    print(f"  ✓ {tour2.title}")
+    
+    TourPrice.objects.create(tour=tour2, category='premium', season='all', price=2500)
+    TourInclude.objects.create(tour=tour2, text='Отели 5* с завтраками', is_included=True, order=1)
+    TourInclude.objects.create(tour=tour2, text='Частный гид-историк', is_included=True, order=2)
+    TourInclude.objects.create(tour=tour2, text='VIP-трансферы', is_included=True, order=3)
+
+# Тур 3: Бюджетный уик-энд
+tour3, created = Tour.objects.get_or_create(
+    slug='byudzhetnyy-ashkhabad',
+    defaults={
+        'title': 'Уик-энд в Ашхабаде',
+        'category': 'budget',
+        'tour_type': 'weekend',
+        'direction': 'Ашхабад',
+        'duration_days': 3,
+        'season': 'Круглый год',
+        'season_spring': True,
+        'season_summer': True,
+        'season_autumn': True,
+        'season_winter': True,
+        'short_description': 'Короткий тур по столице Туркменистана — идеально для первого знакомства',
+        'full_description': '''
+Экспресс-знакомство с Ашхабадом за 3 дня:
+
+• Основные достопримечательности столицы
+• Музеи и памятники архитектуры
+• Национальная кухня в местных ресторанах
+• Шопинг на Толкучке (восточный базар)
+
+Отличный вариант для деловых поездок с культурной программой.
+        ''',
+        'price_from': 450,
+        'is_popular': False,
+        'is_active': True,
+        'order': 3,
+    }
+)
+if created:
+    print(f"  ✓ {tour3.title}")
+    
+    TourPrice.objects.create(tour=tour3, category='budget', season='all', price=450)
+
+print(f"  ✅ Создано туров: {Tour.objects.count()}\n")
+
+
+# ============================================================
+# 2️⃣ КАТЕГОРИИ — ФИЧИ
+# ============================================================
+
+print("🎯 Создание фич для категорий...")
+
+features_data = [
+    # Budget
+    ('budget', 'Экономичное проживание', 'Отели 2-3* или гостевые дома', 'fa-hotel', 1),
+    ('budget', 'Групповые экскурсии', 'В составе небольших групп до 15 человек', 'fa-users', 2),
+    ('budget', 'Базовый транспорт', 'Комфортабельные автобусы или минивэны', 'fa-bus', 3),
+    
+    # Standard
+    ('standard', 'Комфорт и качество', 'Отели 3-4* с завтраками', 'fa-star', 1),
+    ('standard', 'Опытные гиды', 'Русско/англоговорящие профессионалы', 'fa-user-tie', 2),
+    ('standard', 'Полный пакет', 'Все входные билеты и трансферы включены', 'fa-check-circle', 3),
+    
+    # Premium
+    ('premium', 'Роскошь и эксклюзив', 'Отели 5* (Yyldyz, Oguzkent)', 'fa-gem', 1),
+    ('premium', 'Частные туры', 'Индивидуальные маршруты под запрос', 'fa-crown', 2),
+    ('premium', 'VIP-сервис', 'Персональный гид, водитель, консьерж', 'fa-concierge-bell', 3),
+]
+
+for cat, title, desc, icon, order in features_data:
+    CategoryFeature.objects.get_or_create(
+        category=cat,
+        title=title,
+        defaults={'description': desc, 'icon': icon, 'order': order}
+    )
+
+print(f"  ✅ Создано фич: {CategoryFeature.objects.count()}\n")
+
+
+# ============================================================
+# 3️⃣ КЕЙСЫ
+# ============================================================
+
+print("💼 Создание кейсов...")
+
+case1, created = Case.objects.get_or_create(
+    slug='konferentsiya-oil-gas-2025',
+    defaults={
+        'title': 'Международная конференция Oil & Gas 2025',
+        'direction': 'tourism',
+        'client': 'Министерство энергетики Туркменистана',
+        'short_description': 'Организация 3-дневной конференции для 200+ участников из 15 стран',
+        'full_description': '''
+**Задача:**  
+Провести международную конференцию нефтегазовой отрасли с участием делегаций из стран СНГ, Европы и Азии.
+
+**Решение:**  
+• Полное сопровождение участников (визы, трансферы, проживание)  
+• Аренда конференц-залов в отеле Oguzkent  
+• Синхронный перевод на 4 языках  
+• Культурная программа (Ниса, Дарваза)  
+• Организация гала-ужина
+
+**Команда:** 2 менеджера, 4 переводчика, 3 гида
+        ''',
+        'result': 'Конференция прошла успешно. Отзывы участников — 9.2/10. Клиент заказал организацию следующего форума.',
+        'is_featured': True,
+        'is_active': True,
+        'order': 1,
+    }
+)
+if created:
+    print(f"  ✓ {case1.title}")
+
+case2, created = Case.objects.get_or_create(
+    slug='konsalting-eksport-kazakhstan',
+    defaults={
+        'title': 'Консалтинг по экспорту текстиля в Казахстан',
+        'direction': 'consulting',
+        'client': 'ТОО «Ashgabat Textile»',
+        'short_description': 'Помощь в выходе туркменской текстильной компании на рынок Казахстана',
+        'full_description': '''
+**Задача:**  
+Компания производитель хлопковых тканей хотела начать экспорт в Казахстан, но не знала требований рынка.
+
+**Решение:**  
+• Анализ рынка текстиля Казахстана  
+• Подбор дистрибьюторов в Алматы и Астане  
+• Консультации по сертификации и логистике  
+• Сопровождение первых контрактов
+
+**Срок:** 4 месяца
+        ''',
+        'result': 'Компания заключила контракты с 3 дистрибьюторами. Объём экспорта в первый год — $1.2 млн.',
+        'is_featured': True,
+        'is_active': True,
+        'order': 2,
+    }
+)
+if created:
+    print(f"  ✓ {case2.title}")
+
+case3, created = Case.objects.get_or_create(
+    slug='oborudovanie-forum-ashgabat-2024',
+    defaults={
+        'title': 'Аренда оборудования для форума Ashgabat 2024',
+        'direction': 'linguistics',
+        'client': 'Организационный комитет форума',
+        'short_description': 'Полный комплекс переводческого оборудования для 500+ участников',
+        'full_description': '''
+**Задача:**  
+Обеспечить синхронный перевод на 6 языков для крупного международного форума.
+
+**Решение:**  
+• 12 кабин синхронного перевода  
+• 600 беспроводных наушников  
+• Звуковое оборудование для 3 залов  
+• Техническая поддержка 24/7
+
+**Команда:** 3 техника, 12 переводчиков
+        ''',
+        'result': 'Оборудование работало без сбоев. Клиент продлил договор на следующий год.',
+        'is_featured': False,
+        'is_active': True,
+        'order': 3,
+    }
+)
+if created:
+    print(f"  ✓ {case3.title}")
+
+print(f"  ✅ Создано кейсов: {Case.objects.count()}\n")
+
+
+# ============================================================
+# 4️⃣ ПАРТНЁРЫ
+# ============================================================
+
+print("🤝 Создание партнёров...")
+
+partners_data = [
+    ('Turkmenistan Airlines', 'https://turkmenistanairlines.tm'),
+    ('Oguzkent Hotel', 'https://oguzkent.com'),
+    ('Yyldyz Hotel', 'https://yyldyzhotel.com'),
+    ('Министерство туризма Туркменистана', 'https://tourism.gov.tm'),
+    ('Торгово-промышленная палата', 'https://cci.gov.tm'),
+]
+
+for idx, (name, url) in enumerate(partners_data, 1):
+    Partner.objects.get_or_create(
+        name=name,
+        defaults={'url': url, 'order': idx, 'is_active': True}
+    )
+
+print(f"  ✅ Создано партнёров: {Partner.objects.count()}\n")
+
+
+# ============================================================
+# 5️⃣ ТЕСТОВЫЕ ЗАЯВКИ
+# ============================================================
+
+print("📩 Создание тестовых заявок...")
+
+ContactMessage.objects.get_or_create(
+    phone='+7 777 123 4567',
+    defaults={
+        'name': 'Алексей Иванов',
+        'email': 'ivanov@example.com',
+        'message': 'Здравствуйте! Интересует тур "Классический Туркменистан" на июнь 2026. Есть ли скидки для группы из 4 человек?'
+    }
+)
+
+ContactMessage.objects.get_or_create(
+    phone='+993 65 123456',
+    defaults={
+        'name': 'Mahri Gurbanova',
+        'email': 'mahri@gmail.com',
+        'message': 'Salam! We need interpretation equipment for conference on March 15. Please contact me.'
+    }
+)
+
+print(f"  ✅ Создано заявок: {ContactMessage.objects.count()}\n")
+
+
+# ============================================================
+# ИТОГО
+# ============================================================
+
+print("="*60)
+print("✅ ЗАГРУЗКА ЗАВЕРШЕНА!")
+print("="*60)
+print(f"📍 Туров: {Tour.objects.count()}")
+print(f"🎯 Фич категорий: {CategoryFeature.objects.count()}")
+print(f"💼 Кейсов: {Case.objects.count()}")
+print(f"🤝 Партнёров: {Partner.objects.count()}")
+print(f"📩 Заявок: {ContactMessage.objects.count()}")
+print("="*60)
+print("\n🔐 Теперь войдите в админку: http://127.0.0.1:8000/admin/")
+print("   (создайте суперпользователя: python manage.py createsuperuser)\n")
 ```
 
 ### 📄 `about\__init__.py`
@@ -832,43 +1206,137 @@ def ask(request):
 ### 📄 `cases\admin.py`
 
 ```python
-# 📁 cases/admin.py
-
+"""
+================================================================
+TM IMPRESSIVE — Cases & Partners Admin
+Кейсы и партнёры компании
+================================================================
+"""
 from django.contrib import admin
-
+from django.utils.html import format_html
 from .models import Case, Partner
 
 
+# ============================================================
+# КЕЙСЫ (ПОРТФОЛИО)
+# ============================================================
+
 @admin.register(Case)
 class CaseAdmin(admin.ModelAdmin):
-    list_display = ('title', 'client', 'get_direction_display', 'is_featured', 'is_active', 'order')
-    list_editable = ('is_featured', 'is_active', 'order')
-    list_filter = ('direction', 'is_active', 'is_featured', 'created_at')
-    search_fields = ('title', 'client', 'short_description')
+    list_display = (
+        'title',
+        'direction_badge',
+        'client',
+        'is_featured',
+        'is_active',
+        'order',
+        'created_at',
+    )
+    list_filter = ('direction', 'is_featured', 'is_active')
+    search_fields = ('title', 'client', 'short_description', 'full_description')
     prepopulated_fields = {'slug': ('title',)}
-    readonly_fields = ('created_at',)  # ← только created_at
+    
+    list_editable = ('is_featured', 'is_active', 'order')
+    list_per_page = 20
+    date_hierarchy = 'created_at'
     
     fieldsets = (
-        ('📝 Основное', {
-            'fields': ('title', 'slug', 'client', 'direction')
+        ('📝 Основная информация', {
+            'fields': (
+                'title',
+                'slug',
+                'direction',
+                'client',
+            )
         }),
-        ('📄 Контент', {
-            'fields': ('short_description', 'full_description', 'image', 'result')
+        ('📄 Описание', {
+            'fields': (
+                'short_description',
+                'full_description',
+                'result',
+            )
         }),
-        ('⚙️ Отображение', {
-            'fields': ('is_featured', 'is_active', 'order')
+        ('🖼️ Изображение', {
+            'fields': ('image',)
         }),
-        ('📅 Дата создания', {
-            'fields': ('created_at',),  # ← только created_at
-            'classes': ('collapse',)
+        ('⚙️ Настройки', {
+            'fields': (
+                'is_featured',
+                'is_active',
+                'order',
+            )
         }),
     )
+    
+    def direction_badge(self, obj):
+        colors = {
+            'tourism': '#0f6b52',       # malachite
+            'consulting': '#3b82f6',    # blue
+            'linguistics': '#DDB74E',   # brass
+        }
+        color = colors.get(obj.direction, '#6b7280')
+        return format_html(
+            '<span style="background: ; color: white; padding: 4px 12px; '
+            'border-radius: 12px; font-weight: 600; font-size: 11px;">{}</span>',
+            color,
+            obj.get_direction_display()
+        )
+    direction_badge.short_description = 'Направление'
+
+
+# ============================================================
+# ПАРТНЁРЫ
+# ============================================================
 
 @admin.register(Partner)
 class PartnerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'is_active', 'order')
+    list_display = (
+        'name',
+        'logo_preview',
+        'url_link',
+        'is_active',
+        'order',
+    )
+    list_filter = ('is_active',)
+    search_fields = ('name', 'url')
+    
     list_editable = ('is_active', 'order')
-    fields = ('name', 'logo', 'url', 'is_active', 'order')
+    list_per_page = 30
+    
+    fieldsets = (
+        ('📝 Информация о партнёре', {
+            'fields': (
+                'name',
+                'logo',
+                'url',
+            )
+        }),
+        ('⚙️ Настройки', {
+            'fields': (
+                'order',
+                'is_active',
+            )
+        }),
+    )
+    
+    def logo_preview(self, obj):
+        if obj.logo:
+            return format_html(
+                '<img src="{}" style="max-height: 50px; max-width: 120px; '
+                'object-fit: contain; border-radius: 4px;" />',
+                obj.logo.url
+            )
+        return '—'
+    logo_preview.short_description = 'Логотип'
+    
+    def url_link(self, obj):
+        if obj.url:
+            return format_html(
+                '<a href="{}" target="_blank" style="color: #0f6b52;">🔗 Открыть</a>',
+                obj.url
+            )
+        return '—'
+    url_link.short_description = 'Ссылка'
 ```
 
 ### 📄 `cases\apps.py`
@@ -1113,7 +1581,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',  # Папка для кастомных шаблонов админки
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -1174,6 +1644,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
+    BASE_DIR / 'static_custom',  # Папка для кастомного CSS админки
 ]
 
 # Хранилище WhiteNoise для сжатия и кэширования статики
@@ -1336,15 +1807,69 @@ def index(request):
 ### 📄 `contacts\admin.py`
 
 ```python
+"""
+================================================================
+TM IMPRESSIVE — Contacts Admin
+Заявки с сайта (контактная форма)
+================================================================
+"""
 from django.contrib import admin
+from django.utils.html import format_html
 from .models import ContactMessage
 
 
+# ============================================================
+# КОНТАКТНЫЕ ЗАЯВКИ (только просмотр)
+# ============================================================
+
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
-    list_display = ("name", "phone", "email", "created_at")
-    search_fields = ("name", "phone", "email")
-    list_filter = ("created_at",)
+    list_display = (
+        'name',
+        'phone',
+        'email',
+        'message_preview',
+        'created_at',
+    )
+    list_filter = ('created_at',)
+    search_fields = ('name', 'phone', 'email', 'message')
+    date_hierarchy = 'created_at'
+    
+    list_per_page = 50
+    
+    # Только чтение — менеджеры не должны редактировать заявки
+    readonly_fields = ('name', 'phone', 'email', 'message', 'created_at')
+    
+    fieldsets = (
+        ('👤 Контактная информация', {
+            'fields': (
+                'name',
+                'phone',
+                'email',
+            )
+        }),
+        ('💬 Сообщение', {
+            'fields': ('message',)
+        }),
+        ('📅 Дата получения', {
+            'fields': ('created_at',)
+        }),
+    )
+    
+    def message_preview(self, obj):
+        """Первые 60 символов сообщения"""
+        if len(obj.message) > 60:
+            return obj.message[:60] + '...'
+        return obj.message
+    message_preview.short_description = 'Сообщение'
+    
+    # Запрет на добавление и удаление через админку
+    def has_add_permission(self, request):
+        return False
+    
+    def has_delete_permission(self, request, obj=None):
+        # Разрешаем удаление только суперпользователям
+        return request.user.is_superuser
 ```
 
 ### 📄 `contacts\apps.py`
@@ -8995,6 +9520,40 @@ def highlight(text, query):
     return mark_safe(highlighted)
 ```
 
+### 📄 `templates\admin\base_site.html`
+
+```html
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | TM IMPRESSIVE{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/admin_theme.css' %}">
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}" style="color: #DDB74E; text-decoration: none;">
+        <span style="font-weight: 700; font-size: 1.3rem;">TM IMPRESSIVE</span>
+        <span style="font-size: 0.85rem; margin-left: 1rem; color: rgba(255,255,255,0.7);">Управление</span>
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}
+<div style="color: rgba(255,255,255,0.85); font-size: 0.9rem;">
+    {% if user.is_active and user.is_staff %}
+        👤 {{ user.get_username }} |
+        <a href="{% url 'admin:password_change' %}" style="color: white; text-decoration: none; margin: 0 1rem;">🔐 Пароль</a>
+        <a href="/" target="_blank" style="color: #DDB74E; text-decoration: none; margin: 0 1rem;">🌐 На сайт</a>
+        <a href="{% url 'admin:logout' %}" style="color: white; text-decoration: none; margin-left: 1rem;">Выход</a>
+    {% endif %}
+</div>
+{% endblock %}
+```
+
 ### 📄 `theme\static_src\.gitignore`
 
 ```text
@@ -10469,6 +11028,12 @@ function copyContact(number, el) {
 
             <!-- Синхронная кабина -->
             <div class="bg-gradient-to-br from-cream to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border-l-4 border-teal">
+                <!-- КАРТИНКА -->
+                <div class="mb-6 h-48 bg-malachite/5 rounded-xl flex items-center justify-center overflow-hidden">
+                    <img src="{% static 'images/equipment/booth.jpg' %}" 
+                        alt="Кабина синхронного перевода"
+                        class="w-full h-full object-cover">
+                </div>
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-teal text-white text-2xl shrink-0">
                         <i class="fa-solid fa-microphone"></i>
@@ -10480,6 +11045,7 @@ function copyContact(number, el) {
                 </div>
                 <ul class="space-y-2 text-ink/70 mb-6">
                     <li class="flex items-center gap-2">
+                        
                         <i class="fa-solid fa-check text-teal"></i>
                         Высокая звукоизоляция
                     </li>
@@ -10492,6 +11058,12 @@ function copyContact(number, el) {
 
             <!-- Приёмники и наушники -->
             <div class="bg-gradient-to-br from-cream to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border-l-4 border-brass">
+                <!-- КАРТИНКА -->
+                <div class="mb-6 h-48 bg-brass/5 rounded-xl flex items-center justify-center overflow-hidden">
+                    <img src="{% static 'images/equipment/headphones.jpg' %}" 
+                        alt="Система передачи звука"
+                        class="w-full h-full object-cover">
+                </div>
                 <div class="flex items-start gap-4 mb-6">
                     <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-brass text-malachite text-2xl shrink-0">
                         <i class="fa-solid fa-headphones"></i>
@@ -10511,26 +11083,35 @@ function copyContact(number, el) {
         <!-- Доп. оборудование -->
         <div class="mb-14">
             <h3 class="text-2xl font-bold text-malachite mb-6">Дополнительное оборудование</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- СТАЛО: иконки Material -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
-                <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all border border-cream hover:border-teal">
-                    <div class="text-3xl mb-3 text-teal">🎤</div>
-                    <h4 class="font-bold text-malachite mb-2">Микрофоны</h4>
+                <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition">
+                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite/10 text-malachite text-3xl">
+                        <i class="fa-solid fa-microphone"></i>
+                    </div>
+                    <p class="font-semibold text-malachite text-center">Микрофоны</p>
                 </div>
 
-                <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all border border-cream hover:border-teal">
-                    <div class="text-3xl mb-3 text-teal">🔊</div>
-                    <h4 class="font-bold text-malachite mb-2">Акустические системы</h4>
+                <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition">
+                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite/10 text-malachite text-3xl">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </div>
+                    <p class="font-semibold text-malachite text-center">Акустические системы</p>
                 </div>
 
-                <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all border border-cream hover:border-teal">
-                    <div class="text-3xl mb-3 text-teal">📺</div>
-                    <h4 class="font-bold text-malachite mb-2">Экраны и проекторы</h4>
+                <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition">
+                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite/10 text-malachite text-3xl">
+                        <i class="fa-solid fa-display"></i>
+                    </div>
+                    <p class="font-semibold text-malachite text-center">Экраны и проекторы</p>
                 </div>
 
-                <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all border border-cream hover:border-teal">
-                    <div class="text-3xl mb-3 text-teal">🔌</div>
-                    <h4 class="font-bold text-malachite mb-2">Смешивающее оборудование</h4>
+                <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition">
+                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite/10 text-malachite text-3xl">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <p class="font-semibold text-malachite text-center">Смешивающее оборудование</p>
                 </div>
 
             </div>
@@ -11316,6 +11897,749 @@ function copyContact(number, el) {
 {% endblock %}
 ```
 
+### 📄 `static_custom\admin\css\admin_theme.css`
+
+```css
+/* 
+================================================================
+TM IMPRESSIVE — Premium Admin Theme
+Palette: Malachite #0f6b52, Brass #DDB74E, Cream #F8F5F0
+================================================================
+*/
+
+:root {
+    --primary: #0f6b52;        /* Malachite - main brand */
+    --accent: #DDB74E;         /* Brass - highlights */
+    --bg-light: #F8F5F0;       /* Cream - backgrounds */
+    --dark: #0a4a37;           /* Forest dark - headers */
+    --text-muted: #6b7280;
+}
+
+/* ============================================================
+   HEADER & BRANDING
+============================================================ */
+#header {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%) !important;
+    color: white !important;
+    padding: 1rem 2rem !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#branding h1 {
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+    font-size: 1.5rem !important;
+    letter-spacing: 0.5px;
+}
+
+#branding h1 a:link,
+#branding h1 a:visited {
+    color: var(--accent) !important;
+}
+
+#user-tools {
+    color: rgba(255,255,255,0.9) !important;
+}
+
+#user-tools a {
+    color: white !important;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+#user-tools a:hover {
+    border-bottom-color: var(--accent);
+}
+
+/* ============================================================
+   SIDEBAR / NAVIGATION
+============================================================ */
+.module h2,
+.module caption,
+.inline-group h2 {
+    background: var(--primary) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 6px 6px 0 0;
+}
+
+#content-main {
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+.button,
+input[type=submit],
+input[type=button],
+.submit-row input,
+a.button {
+    background: var(--primary) !important;
+    color: white !important;
+    border: none !important;
+    padding: 0.65rem 1.5rem !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s !important;
+    cursor: pointer !important;
+}
+
+.button:hover,
+input[type=submit]:hover,
+input[type=button]:hover,
+.submit-row input:hover,
+a.button:hover {
+    background: var(--dark) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(15, 107, 82, 0.3) !important;
+}
+
+.button.default,
+input[type=submit].default,
+.submit-row input.default {
+    background: var(--accent) !important;
+    color: var(--dark) !important;
+}
+
+.button.default:hover {
+    background: #c8952a !important;
+}
+
+/* Delete button */
+.deletelink,
+.deletelink-box a {
+    background: #dc2626 !important;
+}
+
+.deletelink:hover {
+    background: #b91c1c !important;
+}
+
+/* ============================================================
+   TABLES
+============================================================ */
+#result_list {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#result_list thead th {
+    background: var(--primary) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    padding: 1rem !important;
+    border: none !important;
+}
+
+#result_list tbody tr {
+    background: white;
+    transition: background 0.15s;
+}
+
+#result_list tbody tr:hover {
+    background: var(--bg-light) !important;
+}
+
+#result_list tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+#result_list tbody tr:nth-child(even):hover {
+    background: var(--bg-light) !important;
+}
+
+#result_list tbody td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* ============================================================
+   CHANGELIST FILTERS
+============================================================ */
+#changelist-filter {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#changelist-filter h2 {
+    background: var(--dark) !important;
+    color: white !important;
+    margin: -1rem -1rem 1rem -1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px 8px 0 0;
+}
+
+#changelist-filter h3 {
+    color: var(--primary);
+    font-weight: 600;
+    margin-top: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+}
+
+#changelist-filter a {
+    color: var(--primary);
+    transition: color 0.2s;
+}
+
+#changelist-filter a:hover {
+    color: var(--accent);
+}
+
+#changelist-filter li.selected a {
+    color: var(--accent) !important;
+    font-weight: 600;
+}
+
+/* ============================================================
+   FORMS
+============================================================ */
+.form-row {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.form-row:hover {
+    background: var(--bg-light);
+}
+
+/* Все input-поля по ширине контейнера */
+input[type=text],
+input[type=email],
+input[type=url],
+input[type=number],
+textarea,
+select,
+.admin-readonly {
+    width: 100% !important;
+    border: 2px solid #e5e7eb !important;
+    border-radius: 6px !important;
+    padding: 0.65rem 0.75rem !important;
+    transition: border-color 0.2s !important;
+    font-size: 1rem !important;
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+}
+
+/* На узких экранах тоже нормально */
+@media (max-width: 768px) {
+    input[type=text],
+    input[type=email],
+    input[type=url],
+    input[type=number],
+    textarea,
+    select {
+        width: 100% !important;
+        min-width: 200px !important;
+    }
+}
+
+/* Textarea больше */
+textarea {
+    min-height: 150px !important;
+    resize: vertical !important;
+}
+
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=url]:focus,
+input[type=number]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(15, 107, 82, 0.1) !important;
+}
+
+/* ============================================================
+   INLINE FORMS (Gallery, Prices, Days)
+============================================================ */
+.inline-group {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.inline-related {
+    background: var(--bg-light);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-radius: 6px;
+    border-left: 3px solid var(--accent);
+}
+
+.inline-related:hover {
+    border-left-color: var(--primary);
+}
+
+/* ============================================================
+   MESSAGES & NOTIFICATIONS
+============================================================ */
+.messagelist {
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+.messagelist li {
+    padding: 1rem 1.5rem;
+    margin-bottom: 0.75rem;
+    border-radius: 6px;
+    font-weight: 500;
+    display: block;
+}
+
+.messagelist .success {
+    background: #d1fae5;
+    color: #065f46;
+    border-left: 4px solid #10b981;
+}
+
+.messagelist .warning {
+    background: #fef3c7;
+    color: #92400e;
+    border-left: 4px solid #f59e0b;
+}
+
+.messagelist .error {
+    background: #fee2e2;
+    color: #991b1b;
+    border-left: 4px solid #ef4444;
+}
+
+.messagelist .info {
+    background: #dbeafe;
+    color: #1e40af;
+    border-left: 4px solid #3b82f6;
+}
+
+/* ============================================================
+   BREADCRUMBS
+============================================================ */
+.breadcrumbs {
+    background: white !important;
+    padding: 0.75rem 2rem !important;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.breadcrumbs a {
+    color: var(--primary) !important;
+    font-weight: 500;
+}
+
+.breadcrumbs a:hover {
+    color: var(--accent) !important;
+}
+
+/* ============================================================
+   DASHBOARD (INDEX PAGE)
+============================================================ */
+.module h2 a {
+    color: white !important;
+}
+
+.module h2 a:hover {
+    color: var(--accent) !important;
+}
+
+#content-main .module {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+.module table {
+    width: 100%;
+}
+
+.module tbody tr:hover {
+    background: var(--bg-light);
+}
+
+/* ============================================================
+   BOOLEAN ICONS (✓ / ✗)
+============================================================ */
+img[src*="icon-yes"],
+img[alt="True"] {
+    /* Green checkmark */
+    filter: hue-rotate(90deg) saturate(3);
+}
+
+img[src*="icon-no"],
+img[alt="False"] {
+    /* Red X */
+    opacity: 0.5;
+}
+
+/* ============================================================
+   PAGINATION
+============================================================ */
+.paginator {
+    color: var(--text-muted);
+    padding: 1rem 0;
+}
+
+.paginator a {
+    color: var(--primary);
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.paginator a:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* ============================================================
+   HELP TEXT
+============================================================ */
+.help,
+.helptext {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-style: italic;
+}
+
+/* ============================================================
+   RESPONSIVE TWEAKS
+============================================================ */
+@media (max-width: 1024px) {
+    #content-main {
+        padding: 1rem;
+    }
+}
+
+
+/* ============================================================
+   SIDEBAR / NAVIGATION
+============================================================ */
+#sidebar {
+    background: linear-gradient(180deg, var(--dark) 0%, var(--primary) 100%) !important;
+    border-right: 3px solid var(--accent) !important;
+    padding: 1rem 0 !important;
+    color: white !important;
+}
+
+#sidebar h2 {
+    background: transparent !important;
+    color: var(--accent) !important;
+    padding: 1rem !important;
+    margin: 0 !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    border-bottom: 2px solid var(--accent) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+#sidebar .module {
+    background: transparent !important;
+    border: none !important;
+    margin: 0.5rem 0 !important;
+    padding: 0 !important;
+}
+
+#sidebar .module h3 {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    padding: 0.75rem 1rem !important;
+    margin: 0 !important;
+    font-weight: 600 !important;
+    border-left: 3px solid var(--accent) !important;
+    transition: all 0.2s !important;
+    cursor: pointer !important;
+}
+
+#sidebar .module h3:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    padding-left: 1.25rem !important;
+}
+
+#sidebar .module ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+}
+
+#sidebar .module ul li {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+#sidebar .module ul li a {
+    display: block !important;
+    padding: 0.75rem 1rem 0.75rem 1.5rem !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-decoration: none !important;
+    transition: all 0.2s !important;
+    font-size: 0.95rem !important;
+    border-left: 2px solid transparent !important;
+}
+
+#sidebar .module ul li a:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: var(--accent) !important;
+    border-left-color: var(--accent) !important;
+    padding-left: 1.75rem !important;
+}
+
+#sidebar .module ul li a.selected {
+    background: var(--accent) !important;
+    color: var(--dark) !important;
+    font-weight: 600 !important;
+    border-left-color: var(--dark) !important;
+}
+
+/* Search box в sidebar */
+#id_q {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 2px solid var(--accent) !important;
+    border-radius: 6px !important;
+    padding: 0.75rem !important;
+    margin: 1rem !important;
+    width: calc(100% - 2rem) !important;
+    box-sizing: border-box !important;
+    color: var(--dark) !important;
+}
+
+#id_q:focus {
+    background: white !important;
+    box-shadow: 0 0 0 3px rgba(221, 183, 78, 0.3) !important;
+}
+
+/* ============================================================
+   COLORS
+============================================================ */
+:root {
+    --dark: #0a4a37;
+    --primary: #0f6b52;
+    --accent: #DDB74E;
+    --bg-light: #F8F5F0;
+}
+
+/* ============================================================
+   SIDEBAR / NAVIGATION
+============================================================ */
+
+/* Скрыть sidebar на главной странице */
+body.change-list #sidebar,
+body.dashboard #sidebar {
+    display: none !important;
+}
+
+#sidebar {
+    background: linear-gradient(180deg, #0a4a37 0%, #0f6b52 100%) !important;
+    border-right: 3px solid #DDB74E !important;
+    padding: 1rem 0 !important;
+    color: white !important;
+}
+
+#sidebar h2 {
+    background: transparent !important;
+    color: #DDB74E !important;
+    padding: 1rem !important;
+    margin: 0 !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    border-bottom: 2px solid #DDB74E !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+#sidebar .module {
+    background: transparent !important;
+    border: none !important;
+    margin: 0.5rem 0 !important;
+    padding: 0 !important;
+}
+
+#sidebar .module h3 {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    padding: 0.75rem 1rem !important;
+    margin: 0 !important;
+    font-weight: 600 !important;
+    border-left: 3px solid #DDB74E !important;
+    transition: all 0.2s !important;
+}
+
+#sidebar .module h3:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    padding-left: 1.25rem !important;
+}
+
+#sidebar .module ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+}
+
+#sidebar .module ul li {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+#sidebar .module ul li a {
+    display: block !important;
+    padding: 0.65rem 1rem 0.65rem 1.5rem !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    text-decoration: none !important;
+    transition: all 0.2s !important;
+    font-size: 0.9rem !important;
+    border-left: 2px solid transparent !important;
+}
+
+#sidebar .module ul li a:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #DDB74E !important;
+    border-left-color: #DDB74E !important;
+    padding-left: 1.75rem !important;
+}
+
+#sidebar .module ul li a.selected {
+    background: #DDB74E !important;
+    color: #0a4a37 !important;
+    font-weight: 600 !important;
+    border-left-color: #0a4a37 !important;
+}
+
+
+/* ============================================================
+   OVERRIDE ALL BLUE COLORS TO MALACHITE
+============================================================ */
+
+/* Все модули (CASES, CONTACTS, TOURISM и т.д.) */
+.module h2,
+.module caption,
+.inline-group h2,
+#changelist-filter h2 {
+    background: #0f6b52 !important;
+    color: white !important;
+}
+
+/* Все кнопки и ссылки в sidebar */
+#sidebar a,
+.module a {
+    color: #0f6b52 !important;
+}
+
+#sidebar a:hover,
+.module a:hover {
+    color: #DDB74E !important;
+}
+
+/* Все синие элементы -> зелёные */
+.button,
+input[type=submit],
+input[type=button],
+a.button {
+    background: #0f6b52 !important;
+    color: white !important;
+}
+
+.button:hover,
+input[type=submit]:hover,
+a.button:hover {
+    background: #0a4a37 !important;
+}
+
+/* Search-фильтры */
+#changelist-filter h3 {
+    color: #0f6b52 !important;
+    border-bottom-color: #DDB74E !important;
+}
+
+#changelist-filter a {
+    color: #0f6b52 !important;
+}
+
+#changelist-filter a:hover {
+    color: #DDB74E !important;
+}
+
+#changelist-filter li.selected a {
+    color: #DDB74E !important;
+    font-weight: 600 !important;
+}
+
+/* Таблицы */
+#result_list thead th {
+    background: #0f6b52 !important;
+    color: white !important;
+}
+
+/* Breadcrumbs */
+.breadcrumbs a {
+    color: #0f6b52 !important;
+}
+
+.breadcrumbs a:hover {
+    color: #DDB74E !important;
+}
+
+/* ============================================================
+   FIX: BUTTONS OVERFLOW & PADDING
+============================================================ */
+
+/* Кнопка "Найти" и все кнопки поиска */
+.searchbar button,
+input[type=submit].default,
+.submit-row input,
+a.button,
+button {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: inline-block !important;
+    min-width: 60px !important;
+    padding: 0.6rem 1.2rem !important;
+    font-size: 0.95rem !important;
+    line-height: 1.2 !important;
+    height: auto !important;
+    vertical-align: middle !important;
+}
+
+/* Конкретно кнопка Search */
+.searchbar input[type=submit],
+form .submit-row input[type=submit] {
+    padding: 0.65rem 1.5rem !important;
+    background: #0f6b52 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 4px !important;
+    font-weight: 600 !important;
+}
+
+.searchbar input[type=submit]:hover,
+form .submit-row input[type=submit]:hover {
+    background: #0a4a37 !important;
+}
+
+/* Header градиент - если нужно убрать */
+#header {
+    background: #0f6b52 !important;
+    /* Или если нужен градиент, то: */
+    /* background: linear-gradient(135deg, #0a4a37 0%, #0f6b52 100%) !important; */
+}
+```
+
 ### 📄 `theme\static_src\src\styles.css`
 
 ```css
@@ -11390,6 +12714,8 @@ function copyContact(number, el) {
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      display: inline-block; /* ВАЖНО! */
+      font-weight: 700;
   }
 ```
 
@@ -11692,8 +13018,8 @@ function copyContact(number, el) {
 <section class="relative  bg-malachite text-white overflow-hidden">
     <img src="{% static 'images/banners/tourism_hero.jpg' %}" alt=""
          class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
-    <div class="relative max-w-8xl mx-auto px-10 py-24 ml-2 md:py-32">
-        <div class="max-w-4xl ">
+    <div class="relative max-w-8xl mx-auto px-10 py-24 ml-2 md:py-32 text-center">
+        <div class="max-w-4xl mx-auto">
             <span class="inline-block px-10 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
                  <i class="fa-solid fa-mountain-sun mr-2"></i>Туризм и MICE
             </span>
@@ -11703,7 +13029,7 @@ function copyContact(number, el) {
             <p class="text-lg md:text-xl text-cream/90 mb-6">
                  Пустыня Каракумы, горы Копетдаг, Каспийское море </br>и древний Шёлковый путь — в одном путешествии.
             </p>
-            <
+            
             <a href="{% url 'contacts:index' %}"
                class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
                 Подобрать тур
@@ -11763,6 +13089,19 @@ function copyContact(number, el) {
             </a>
 
         </div>
+    </div>
+</section>
+
+<!-- ===== ЗАГОЛОВОК КАТАЛОГА ===== -->
+<section class="py-12 bg-white border-t border-malachite/10">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex items-center gap-3">
+            <div class="w-1 h-10 bg-malachite rounded-full"></div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-malachite">
+                Каталог туров
+            </h2>
+        </div>
+        <p class="text-ink/60 mt-2">Выбирайте готовые маршруты или составьте свой</p>
     </div>
 </section>
 
@@ -12297,7 +13636,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <div>
                 <h3 class="text-lg font-bold mb-4 text-[#D4AF37]">Контакты</h3>
                 <ul class="space-y-2 text-sm text-gray-300">
-                    <li>📞 <a href="tel:+99363878057" class="hover:text-[#D4AF37] transition">+993 63 87 80 67</a></li>
+                    <li>📞 <a href="tel:+99363878057" class="hover:text-[#D4AF37] transition">+993 63 87 80 57</a></li>
                     <li>✉️ <a href="mailto:guzelka9494@gmail.com" class="hover:text-[#D4AF37] transition">info@tmimpressive.tm</a></li>
                     <li>📍 Туркменистан, Ашхабад, Арчабиль шаёлы</li>
                 </ul>
