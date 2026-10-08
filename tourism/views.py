@@ -161,7 +161,7 @@ def index(request):
         'directions': directions,
         'duration_choices': DURATION_CHOICES,
         'season_choices': SEASON_CHOICES,
-        'price_choices': PRICE_CHOICES,
+        #'price_choices': PRICE_CHOICES,
         'category_label': dict(Tour.CATEGORY_CHOICES).get(selected['category'], ''),
     }
 

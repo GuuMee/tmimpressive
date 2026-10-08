@@ -1,6 +1,6 @@
 # 📦 Код проекта TM IMPRESSIVE
 
-> Собрано: 13.09.2026 11:00
+> Собрано: 08.10.2026 15:50
 > Всего файлов: 112
 
 ## 🌳 Структура проекта
@@ -7650,7 +7650,7 @@ tmimpressive/
          class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
     <div class="relative max-w-8xl mx-auto px-10 py-24 ml-2 md:py-32">
         <div class="max-w-4xl ">
-            <span class="inline-block px-10 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+            <span class="inline-block px-10 py-1 mb-4 rounded-full bg-malachite/20 text-malachite text-sm font-semibold tracking-wide">
                  <i class="fa-solid fa-mountain-sun mr-2"></i>Туризм и MICE
             </span>
             <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
@@ -8956,11 +8956,8 @@ class Tour(models.Model):
     # Тип туризма (для фильтров в каталоге)
     TYPE_CHOICES = [
         ('cultural', 'Культурный'),
-        ('adventure', 'Приключенческий'),
         ('historical', 'Исторический'),
-        ('mice', 'MICE / Деловой'),
-        ('individual', 'Индивидуальный'),
-        ('photo', 'Фототур'),
+        ('individual', 'Частный'),
     ]
 
     title = models.CharField('Название тура', max_length=200)
@@ -9291,12 +9288,12 @@ SEASON_CHOICES = [
 ]
 
 # 💵 Цена: (код, название, иконка)
-PRICE_CHOICES = [
-    ('0-200', 'до $200', 'fa-tag'),
-    ('200-500', '$200 – $500', 'fa-tags'),
-    ('500-1000', '$500 – $1000', 'fa-gem'),
-    ('1000+', 'от $1000', 'fa-crown'),
-]
+# PRICE_CHOICES = [
+ #   ('0-200', 'до $200', 'fa-tag'),
+  #  ('200-500', '$200 – $500', 'fa-tags'),
+   # ('500-1000', '$500 – $1000', 'fa-gem'),
+    #('1000+', 'от $1000', 'fa-crown'),
+#]
 
 
 # ============================================================
@@ -9660,7 +9657,7 @@ def filter_url(context, **kwargs):
                 О компании<br>TM IMPRESSIVE
             </h1>
             <p class="text-lg md:text-xl text-malachite mb-6">
-                Туризм, бизнес-консалтинг и лингвистика — три направления, объединённые одной целью: связывать возможности.
+                Туризм, бизнес-консалтинг и лингвистика — три направления, объединённые одной целью: связывать и развивать возможности.
                 </p>
             
             <a href="{% url 'contacts:index' %}"
@@ -9726,7 +9723,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-handshake"></i>
                 </div>
                 <h3 class="text-lg font-bold text-malachite mb-2">Надёжность</h3>
-                <p class="text-ink/70 text-sm">Держим слово и выполняем обязательства в срок.</p>
+                <p class="text-ink/70 text-sm">Держим слово и выполняем обязательства в срок</p>
             </div>
 
             <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 text-center">
@@ -9734,7 +9731,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-star"></i>
                 </div>
                 <h3 class="text-lg font-bold text-malachite mb-2">Качество</h3>
-                <p class="text-ink/70 text-sm">Внимание к деталям на каждом этапе работы.</p>
+                <p class="text-ink/70 text-sm">Внимание к деталям на каждом этапе работы</p>
             </div>
 
             <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 text-center">
@@ -9742,7 +9739,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-lightbulb"></i>
                 </div>
                 <h3 class="text-lg font-bold text-malachite mb-2">Индивидуальность</h3>
-                <p class="text-ink/70 text-sm">Персональный подход к каждому клиенту.</p>
+                <p class="text-ink/70 text-sm">Персональный подход к каждому клиенту</p>
             </div>
 
             <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 text-center">
@@ -9750,7 +9747,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-earth-asia"></i>
                 </div>
                 <h3 class="text-lg font-bold text-malachite mb-2">Открытость</h3>
-                <p class="text-ink/70 text-sm">Работаем честно и прозрачно на 4 языках.</p>
+                <p class="text-ink/70 text-sm">Работаем честно и прозрачно на 4 языках</p>
             </div>
 
         </div>
@@ -9771,12 +9768,12 @@ def filter_url(context, **kwargs):
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
 
             <div>
-                <div class="text-5xl md:text-6xl font-extrabold text-brass mb-2">7+</div>
+                <div class="text-5xl md:text-6xl font-extrabold text-brass mb-2">3+</div>
                 <p class="text-cream/80">лет опыта</p>
             </div>
 
             <div>
-                <div class="text-5xl md:text-6xl font-extrabold text-brass mb-2">500+</div>
+                <div class="text-5xl md:text-6xl font-extrabold text-brass mb-2">30+</div>
                 <p class="text-cream/80">довольных клиентов</p>
             </div>
 
@@ -9794,7 +9791,9 @@ def filter_url(context, **kwargs):
     </div>
 </section>
 
+
 <!-- ================= СЕРТИФИКАТЫ ================= -->
+ <!--
 <section class="py-16 md:py-24 bg-white">
     <div class="max-w-6xl mx-auto px-4">
         <h2 class="text-3xl md:text-4xl font-extrabold text-center text-malachite mb-4">
@@ -9833,15 +9832,16 @@ def filter_url(context, **kwargs):
         </div>
     </div>
 </section>
-
+-->
 <!-- ================= CTA ================= -->
-<section class="py-16 md:py-20 bg-cream">
+ <!--
+ <section class="py-16 md:py-20 bg-cream">
     <div class="max-w-3xl mx-auto px-4 text-center">
         <h2 class="text-3xl md:text-4xl font-extrabold text-malachite mb-4">
             Хотите работать с нами?
         </h2>
         <p class="text-ink/70 text-lg mb-8">
-            Свяжитесь с нами — обсудим ваш проект. Ответим в течение 1 часа ⏱️
+            Свяжитесь с нами — обсудим ваш проект.
         </p>
         <a href="{% url 'contacts:index' %}"
            class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
@@ -9849,6 +9849,7 @@ def filter_url(context, **kwargs):
         </a>
     </div>
 </section>
+-->
 
 {% endblock %}
 ```
@@ -10153,18 +10154,18 @@ def filter_url(context, **kwargs):
 {% block content %}
 
 <!-- ================= HERO ================= -->
-<section class="relative bg-malachite text-white overflow-hidden">
+<section class="relative bg-malachite text-malachite overflow-hidden">
     <img src="{% static 'images/banners/business_hero.jpg' %}" alt=""
          class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
     <div class="relative max-w-8xl ml-2 mx-auto px-10 py-24 md:py-32">
         <div class="max-w-4xl">
-            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-malachite/20 text-malachite text-sm font-semibold tracking-wide">
                 <i class="fa-solid fa-briefcase mr-2"></i>Бизнес-консалтинг
             </span>
             <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                 Ваш бизнес-партнёр<br>в Туркменистане
             </h1>
-            <p class="text-lg md:text-xl text-cream/90 mb-8">
+            <p class="text-lg md:text-xl text-malachite/90 mb-8">
                 Помогаем выйти на рынок, найти партнёров и вести дела уверенно.
             </p>
             <a href="{% url 'contacts:index' %}"
@@ -10193,7 +10194,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-door-open"></i>
                 </div>
                 <h3 class="text-xl font-bold text-malachite mb-2">Выход на рынок</h3>
-                <p class="text-ink/70">Анализ рынка и стратегия входа в бизнес-среду Туркменистана.</p>
+                <p class="text-ink/70">Анализ рынка и стратегия входа в бизнес-среду Туркменистана</p>
             </div>
 
             <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300">
@@ -10201,7 +10202,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-handshake-angle"></i>
                 </div>
                 <h3 class="text-xl font-bold text-malachite mb-2">Поиск партнёров</h3>
-                <p class="text-ink/70">Подбор надёжных местных партнёров и поставщиков.</p>
+                <p class="text-ink/70">Подбор надёжных местных партнёров и поставщиков</p>
             </div>
 
             <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300">
@@ -10209,7 +10210,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-file-signature"></i>
                 </div>
                 <h3 class="text-xl font-bold text-malachite mb-2">Сопровождение сделок</h3>
-                <p class="text-ink/70">Поддержка на переговорах и при заключении контрактов.</p>
+                <p class="text-ink/70">Поддержка на переговорах и при заключении контрактов</p>
             </div>
 
             <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300">
@@ -10217,7 +10218,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-scale-balanced"></i>
                 </div>
                 <h3 class="text-xl font-bold text-malachite mb-2">Юридический консалтинг</h3>
-                <p class="text-ink/70">Правовое и налоговое сопровождение вашей деятельности.</p>
+                <p class="text-ink/70">Правовое и налоговое сопровождение вашей деятельности</p>
             </div>
 
             <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300">
@@ -10225,7 +10226,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-chart-line"></i>
                 </div>
                 <h3 class="text-xl font-bold text-malachite mb-2">Маркетинговые исследования</h3>
-                <p class="text-ink/70">Анализ спроса, конкурентов и потенциала вашей ниши.</p>
+                <p class="text-ink/70">Анализ спроса, конкурентов и потенциала вашей ниши</p>
             </div>
 
             <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300">
@@ -10233,7 +10234,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-plane-departure"></i>
                 </div>
                 <h3 class="text-xl font-bold text-malachite mb-2">Деловые визиты</h3>
-                <p class="text-ink/70">Организация бизнес-поездок, встреч и переговоров.</p>
+                <p class="text-ink/70">Организация бизнес-поездок, встреч и переговоров</p>
             </div>
 
         </div>
@@ -10253,7 +10254,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-building"></i>
                 </div>
                 <h3 class="font-bold text-malachite mb-2">Международные компании</h3>
-                <p class="text-ink/70 text-sm">Выходящие на рынок Туркменистана.</p>
+                <p class="text-ink/70 text-sm">Входящие на рынок Туркменистана</p>
             </div>
 
             <div class="text-center p-6">
@@ -10261,7 +10262,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-sack-dollar"></i>
                 </div>
                 <h3 class="font-bold text-malachite mb-2">Инвесторы</h3>
-                <p class="text-ink/70 text-sm">Ищущие перспективные проекты в регионе.</p>
+                <p class="text-ink/70 text-sm">Ищущие перспективные проекты в регионе</p>
             </div>
 
             <div class="text-center p-6">
@@ -10269,7 +10270,7 @@ def filter_url(context, **kwargs):
                     <i class="fa-solid fa-landmark-dome"></i>
                 </div>
                 <h3 class="font-bold text-malachite mb-2">Госструктуры</h3>
-                <p class="text-ink/70 text-sm">Международное сотрудничество и проекты.</p>
+                <p class="text-ink/70 text-sm">Международное сотрудничество и проекты</p>
             </div>
 
         </div>
@@ -10360,7 +10361,7 @@ def filter_url(context, **kwargs):
             Готовы развивать бизнес?
         </h2>
         <p class="text-cream/90 text-lg mb-8">
-            Обсудим ваш проект и найдём лучшее решение. Ответим в течение 1 часа ⏱️
+            Обсудим ваш проект и найдём лучшее решение
         </p>
         <a href="{% url 'contacts:index' %}"
            class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
@@ -10384,24 +10385,25 @@ def filter_url(context, **kwargs):
 
 
 <!-- ================= HERO ================= -->
-<section class="relative  bg-malachite text-white overflow-hidden  min-h-[90vh] ">
-    <img src="{% static 'images/banners/contacts_hero.jpg' %}" alt=""
+<section class="relative  bg-malachite text-malachite overflow-hidden">
+    <img src="{% static 'images/banners/contacts_hero.jpg' %}" alt="контакты связи"
          class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
-    <div class="relative max-w-8xl mx-auto px-10 py-24 ml-2 md:py-32">
+    <div class="relative max-w-8xl mx-auto px-10 py-24 ml-3 md:py-32">
         <div class="max-w-4xl ">
-            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-malachite/20 text-malachite text-sm font-semibold tracking-wide">
                <i class="fa-solid fa-phone mr-2"></i>Контакты
             </span>
             <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                 Свяжитесь с нами
             </h1>
-            <p class="text-lg md:text-xl text-cream/90 mb-6">
+            <p class="text-lg md:text-xl text-malachite mb-6">
                 Ответим на любой вопрос в ближайшее время
             </p>
            
         </div>
     </div>
 </section>
+
 
 
 <!-- ================= МЕССЕНДЖЕРЫ ================= -->
@@ -10411,7 +10413,7 @@ def filter_url(context, **kwargs):
             Напишите нам напрямую
         </h2>
         <p class="text-center text-ink/70 mb-12">
-            Выберите удобный мессенджер — ответим быстро! 💬
+            Выберите удобный мессенджер — ответим быстро!
         </p>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -10546,7 +10548,7 @@ def filter_url(context, **kwargs):
             Оставьте заявку
         </h2>
         <p class="text-center text-ink/70 mb-10">
-            Заполните форму — и мы свяжемся с вами! 📩
+            Заполните форму — и мы свяжемся с вами!
         </p>
 
         <form method="post" class="bg-cream rounded-2xl p-8 shadow-md space-y-5">
@@ -10679,30 +10681,27 @@ function copyContact(number, el) {
 {% block content %}
 
 <!-- ================= HERO ================= -->
-<section class="relative  bg-malachite text-white overflow-hidden">
+<section class="relative  bg-malachite text-malachite overflow-hidden">
     <img src="{% static 'images/banners/linguistics_hero.jpg' %}" alt=""
          class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
     <div class="relative max-w-8xl mx-auto px-10 py-24 ml-2 md:py-32">
         <div class="max-w-4xl ">
-            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-malachite/20 text-malachite text-sm font-semibold tracking-wide">
                 <i class="fa-solid fa-language mr-2"></i>Лингвистические услуги
             </span>
             <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                 Переводы без<br>языковых барьеров
             </h1>
-            <p class="text-lg md:text-xl text-cream/90 mb-6">
+            <p class="text-lg md:text-xl text-malachite/90 mb-6">
                 Профессиональные переводы 
             </p>
             <div class="flex items-center gap-4 mb-8">
-                <img src="https://flagcdn.com/w80/ru.png" alt="Русский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
-                <img src="https://flagcdn.com/w80/gb.png" alt="Английский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
                 <img src="https://flagcdn.com/w80/tm.png" alt="Туркменский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+                <img src="https://flagcdn.com/w80/gb.png" alt="Английский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
                 <img src="https://flagcdn.com/w80/cn.png" alt="Китайский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
+                <img src="https://flagcdn.com/w80/ru.png" alt="Русский" class="w-9 h-6 object-cover rounded shadow ring-1 ring-white/20">
             </div>
-            <a href="{% url 'contacts:index' %}"
-               class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
-                Заказать перевод
-            </a>
+            
         </div>
     </div>
 </section>
@@ -10996,7 +10995,7 @@ function copyContact(number, el) {
             Нужен перевод?
         </h2>
         <p class="text-lg text-cream/90 mb-10">
-            Пришлите документ — оценим объём и сроки. Ответим в течение 1 часа.
+            Пришлите документ — оценим объём и сроки. 
         </p>
         <a href="{% url 'contacts:index' %}"
            class="inline-block px-10 py-4 rounded-full bg-brass text-malachite font-bold text-lg shadow-xl hover:scale-105 transition-transform duration-200">
@@ -11011,13 +11010,11 @@ function copyContact(number, el) {
         
         <!-- Заголовок -->
         <div class="text-center mb-14">
-            <span class="inline-block px-4 py-1 mb-4 rounded-full bg-teal/20 text-teal text-sm font-semibold">
-                <i class="fa-solid fa-microphone mr-2"></i>ТЕХНИЧЕСКАЯ ПОДДЕРЖКА
-            </span>
+            
             <h2 class="text-4xl md:text-5xl lg:text-5xl font-extrabold text-malachite mb-6">
-                Аренда оборудования для переводов
+                Аренда оборудования синхронного перевода
             </h2>
-            <p class="max-w-3xl mx-auto text-lg text-ink/70">
+            <p class="max-w-4xl mx-auto text-3xl">
                 Полный спектр современного оборудования для конференций, форумов и международных мероприятий
             </p>
             <div class="w-24 h-1 bg-teal mx-auto mt-6 rounded-full"></div>
@@ -11030,16 +11027,14 @@ function copyContact(number, el) {
             <div class="bg-gradient-to-br from-cream to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border-l-4 border-teal">
                 <!-- КАРТИНКА -->
                 <div class="mb-6 h-48 bg-malachite/5 rounded-xl flex items-center justify-center overflow-hidden">
-                    <img src="{% static 'images/equipment/booth.jpg' %}" 
+                    <img src="{% static 'images/content/cabins.jpg' %}" 
                         alt="Кабина синхронного перевода"
                         class="w-full h-full object-cover">
                 </div>
                 <div class="flex items-start gap-4 mb-6">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-teal text-white text-2xl shrink-0">
-                        <i class="fa-solid fa-microphone"></i>
-                    </div>
+                    
                     <div>
-                        <h3 class="text-2xl font-bold text-malachite mb-2">Кабины синхронного перевода</h3>
+                        <h3 class="text-2xl font-bold text-malachite mb-2">Кабины синхронного перевода (одноместные, двухместные)</h3>
                         
                     </div>
                 </div>
@@ -11049,10 +11044,7 @@ function copyContact(number, el) {
                         <i class="fa-solid fa-check text-teal"></i>
                         Высокая звукоизоляция
                     </li>
-                    <li class="flex items-center gap-2">
-                        <i class="fa-solid fa-check text-teal"></i>
-                        Включена стойка для наушников
-                    </li>
+
                 </ul>
             </div>
 
@@ -11060,120 +11052,36 @@ function copyContact(number, el) {
             <div class="bg-gradient-to-br from-cream to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border-l-4 border-brass">
                 <!-- КАРТИНКА -->
                 <div class="mb-6 h-48 bg-brass/5 rounded-xl flex items-center justify-center overflow-hidden">
-                    <img src="{% static 'images/equipment/headphones.jpg' %}" 
+                    <img src="{% static 'images/content/headphones.jpg' %}" 
                         alt="Система передачи звука"
                         class="w-full h-full object-cover">
                 </div>
                 <div class="flex items-start gap-4 mb-6">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-brass text-malachite text-2xl shrink-0">
-                        <i class="fa-solid fa-headphones"></i>
-                    </div>
+                    
                     <div>
-                       <h3 class="text-2xl font-bold text-malachite mb-2">Проводная и беспроводная система передачи звука</h3>
+                       <h3 class="text-2xl font-bold text-malachite mb-2">Проводная и беспроводная система</h3>
                     </div>
                 </div>
                 <ul class="space-y-2 text-ink/70 mb-6">
-                     <li>Беспроводные приёмники (количество по заказу)</li>
-                     <li>Удобные и лёгкие наушники</li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-check text-brass"></i>
+                        Беспроводные приёмники (количество по заказу)
+                    </li>
+                     <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-check text-brass"></i>
+                        Удобные и лёгкие наушники (различные варианты)</li>
+                     <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-check text-brass"></i>
+                        Микрофоны (проводные, переносные и беспроводные)<li>
                 </ul>
             </div>
 
         </div>
 
-        <!-- Доп. оборудование -->
-        <div class="mb-14">
-            <h3 class="text-2xl font-bold text-malachite mb-6">Дополнительное оборудование</h3>
-            <!-- СТАЛО: иконки Material -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite/10 text-malachite text-3xl">
-                        <i class="fa-solid fa-microphone"></i>
-                    </div>
-                    <p class="font-semibold text-malachite text-center">Микрофоны</p>
-                </div>
-
-                <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite/10 text-malachite text-3xl">
-                        <i class="fa-solid fa-volume-high"></i>
-                    </div>
-                    <p class="font-semibold text-malachite text-center">Акустические системы</p>
-                </div>
-
-                <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite/10 text-malachite text-3xl">
-                        <i class="fa-solid fa-display"></i>
-                    </div>
-                    <p class="font-semibold text-malachite text-center">Экраны и проекторы</p>
-                </div>
-
-                <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white shadow-sm hover:shadow-md transition">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl bg-malachite/10 text-malachite text-3xl">
-                        <i class="fa-solid fa-sliders"></i>
-                    </div>
-                    <p class="font-semibold text-malachite text-center">Смешивающее оборудование</p>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Преимущества аренды -->
-        <div class="bg-gradient-to-r from-teal/10 to-brass/10 rounded-2xl p-10 border border-teal/30">
-            <h3 class="text-2xl font-bold text-malachite mb-6">Почему выбирают нашу аренду?</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <div class="flex gap-4">
-                    <div class="text-2xl shrink-0 text-teal">✓</div>
-                    <div>
-                        <h4 class="font-bold text-malachite mb-1">Современное оборудование</h4>
-                        <p class="text-sm text-ink/70">Только новая и проверенная техника</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="text-2xl shrink-0 text-teal">✓</div>
-                    <div>
-                        <h4 class="font-bold text-malachite mb-1">Техническая поддержка 24/7</h4>
-                        <p class="text-sm text-ink/70">Наш специалист присутствует на месте</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="text-2xl shrink-0 text-teal">✓</div>
-                    <div>
-                        <h4 class="font-bold text-malachite mb-1">Быстрая доставка и установка</h4>
-                        <p class="text-sm text-ink/70">Монтаж за 1–2 часа, демонтаж после</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="text-2xl shrink-0 text-teal">✓</div>
-                    <div>
-                        <h4 class="font-bold text-malachite mb-1">Гибкие сроки аренды</h4>
-                        <p class="text-sm text-ink/70">От нескольких часов до нескольких недель</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="text-2xl shrink-0 text-teal">✓</div>
-                    <div>
-                        <h4 class="font-bold text-malachite mb-1">Конкурентные цены</h4>
-                        <p class="text-sm text-ink/70">Скидки на пакеты и долгосрочную аренду</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="text-2xl shrink-0 text-teal">✓</div>
-                    <div>
-                        <h4 class="font-bold text-malachite mb-1">Страховка включена</h4>
-                        <p class="text-sm text-ink/70">Защита от повреждений и потерь</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        
 
     </div>
+    
 </section>
 
 <!-- ================= CTA ================= -->
@@ -11183,17 +11091,14 @@ function copyContact(number, el) {
             Организуем перевод и оборудование под ключ
         </h2>
         <p class="text-lg text-cream/90 mb-8 max-w-2xl mx-auto">
-            От маленького митинга до большой международной конференции — справимся с любым масштабом
+            От маленьких совещаний до крупных мероприятий
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="{% url 'contacts:index' %}"
                class="inline-block px-8 py-4 rounded-full bg-brass text-malachite font-bold text-lg hover:scale-105 transition-transform">
                 Заказать услугу
             </a>
-            <a href="{% url 'contacts:index' %}"
-               class="inline-block px-8 py-4 rounded-full border-2 border-brass text-brass font-bold text-lg hover:bg-brass/10 transition">
-                Получить консультацию
-            </a>
+            
         </div>
     </div>
 </section>
@@ -12659,13 +12564,16 @@ form .submit-row input[type=submit]:hover {
    /* --color-malachite: #0B3D2E; был */
       /*--color-malachite: #1a7c63;    /* Светлый зелёный, но не кричащий */
      /* --color-malachite: #1a6b5a;    /* Светлый, но роскошный зелёный */
-      --color-malachite: #0f6b52;    /* Роскошный изумрудно-зелёный */
+     /* --color-malachite: #0f6b52;    /* Роскошный изумрудно-зелёный */
+     /* --color-malachite: #0c4a47;    /* Роскошный изумрудно-зелёный */
+     --color-malachite: #0a4a37;
 
     /* 🟡 Латунь — акценты, кнопки, текст на тёмном фоне */
    /* --color-brass: #D4AF37; был */
      /* --color-brass: #d4a955;         /* Слегка светлее текущего */
     /* --color-brass: #E5C158;         /* Светлая латунь, чуть светлее */
      --color-brass: #DDB74E;         /* Светлая матовая латунь */
+    /* --color-brass: #fffdc0;         /* Песчаный светло-желтый*/
 
     /* 🟢 Бирюзовый — подзаголовки */
     /*--color-teal: #3D7A6F; был */
@@ -13020,14 +12928,14 @@ form .submit-row input[type=submit]:hover {
          class="absolute inset-0 w-full h-full object-cover object-right opacity-90 pointer-events-none">
     <div class="relative max-w-8xl mx-auto px-10 py-24 ml-2 md:py-32 text-center">
         <div class="max-w-4xl mx-auto">
-            <span class="inline-block px-10 py-1 mb-4 rounded-full bg-brass/20 text-brass text-sm font-semibold tracking-wide">
+            <span class="inline-block px-10 py-1 mb-4 rounded-full bg-malachite/20 text-malachite text-sm font-semibold tracking-wide">
                  <i class="fa-solid fa-mountain-sun mr-2"></i>Туризм и MICE
             </span>
             <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                 Откройте<br>Туркменистан
             </h1>
-            <p class="text-lg md:text-xl text-cream/90 mb-6">
-                 Пустыня Каракумы, горы Копетдаг, Каспийское море </br>и древний Шёлковый путь — в одном путешествии.
+            <p class="text-shadow-lg md:text-xl text-white mb-6 ">
+                 Пустыня Каракумы, горы Копетдаг, Каспийское море и древний Шёлковый путь — в одном путешествии.
             </p>
             
             <a href="{% url 'contacts:index' %}"
@@ -13667,7 +13575,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         <i class="fa-brands fa-weixin"></i>
                     </a>
                 </div>
-               <!-- <p class="text-xs text-gray-400">Ответим в течение 1 часа ⭐</p>-->
             </div>
 
         </div>
