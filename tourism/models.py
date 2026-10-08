@@ -14,11 +14,8 @@ class Tour(models.Model):
     # Тип туризма (для фильтров в каталоге)
     TYPE_CHOICES = [
         ('cultural', 'Культурный'),
-        ('adventure', 'Приключенческий'),
         ('historical', 'Исторический'),
-        ('mice', 'MICE / Деловой'),
-        ('individual', 'Индивидуальный'),
-        ('photo', 'Фототур'),
+        ('individual', 'Частный'),
     ]
 
     title = models.CharField('Название тура', max_length=200)
